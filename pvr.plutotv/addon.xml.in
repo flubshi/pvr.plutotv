@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+  id="pvr.plutotv"
+  version="0.0.1"
+  name="Pluto.tv PVR Client"
+  provider-name="flubshi">
+  <requires>@ADDON_DEPENDS@
+    <import addon="script.module.inputstreamhelper" version="0.4.1"/>
+    <import addon="inputstream.adaptive" minversion="2.4.2"/>
+  </requires>
+  <extension
+    point="kodi.pvrclient"
+    library_@PLATFORM@="@LIBRARY_FILENAME@"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="de_DE">Pluto.tv PVR Client</summary>
+    <summary lang="en_US">Pluto.tv PVR Client</summary>
+    <description lang="de_DE">Pluto.tv PVR Client. Hinweis: Dies ist kein offizielles Pluto.tv-Plugin und steht nicht in Verbindung zu Pluto.tv. Es wurde von Freiwilligen entwickelt.</description>
+    <description lang="en_US">Pluto.tv PVR Client. Note: This is not an official pluto.tv plugin and not related to pluto.tv. It was developed by volunteers.</description>
+    <platform>@PLATFORM@</platform>
+      <license>GNU General Public License. Version 2, June 1991</license>
+  <forum></forum>
+  <website>https://pluto.tv/</website>
+  <email></email>
+  <source>https://github.com/flubshi/pvr.plutotv</source>
+  <assets>
+    <icon>icon.png</icon>
+    <screenshot>resources/screenshots/screenshot-01.jpg</screenshot>
+    <screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
+    <screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
+  </assets>
+  <news>
+- 0.0.1 Initial alpha version
+  </news>
+  </extension>
+</addon>

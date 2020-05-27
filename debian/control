@@ -1,0 +1,23 @@
+Source: kodi-pvr-plutotv
+Priority: extra
+Maintainer: Nobody <nobody@kodi.tv>
+Build-Depends: debhelper (>= 9.0.0), cmake,
+               kodi-addon-dev, libp8-platform-dev,
+               rapidjson-dev (>= 1.1.0)
+Standards-Version: 3.9.4
+Section: libs
+
+Package: kodi-pvr-plutotv
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: plutotv PVR for Kodi
+ plutotv PVR for Kodi
+
+Package: kodi-pvr-plutotv-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: debug symbols for plutotv PVR for Kodi
+ debug symbols for plutotv PVR for Kodi
+
