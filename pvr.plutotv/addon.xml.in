@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.plutotv"
-  version="0.0.1"
+  version="0.0.2"
   name="Pluto.tv PVR Client"
   provider-name="flubshi">
   <requires>@ADDON_DEPENDS@
@@ -29,6 +29,7 @@
     <screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
   </assets>
   <news>
+- 0.0.2 Dynamic UUID for Device ID and SID
 - 0.0.1 Initial alpha version
   </news>
   </extension>

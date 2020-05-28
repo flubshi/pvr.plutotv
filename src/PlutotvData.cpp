@@ -296,6 +296,18 @@ PVR_ERROR PlutotvData::GetChannelStreamProperties(
   return ret;
 }
 
+string PlutotvData::GetSettingsUUID(string setting)
+{
+  string uuid = kodi::GetSettingString(setting);
+  if(uuid.empty())
+    {
+      uuid = Utils::get_uuid();
+      kodi::Log(ADDON_LOG_DEBUG, "uuid (generated): %s", uuid.c_str());
+      kodi::SetSettingString(setting,uuid);
+    }
+  return uuid;
+}
+
 string PlutotvData::GetChannelStreamUrl(int uniqueId)
 {
   for (const auto& thisChannel : m_channels)
@@ -316,7 +328,8 @@ string PlutotvData::GetChannelStreamUrl(int uniqueId)
 
       //if 'sid' not in streamURL
       //streamURL = Utils::ReplaceAll(streamURL,"deviceModel=&","deviceModel=&sid="+PLUTOTV_SID+"&deviceId="+PLUTOTV_DEVICEID+"&");
-      streamURL = Utils::ReplaceAll(streamURL, "sid=&", "sid="+PLUTOTV_SID+"&"); // TODO Implement SID handling
+      streamURL = Utils::ReplaceAll(streamURL, "deviceId=&", "deviceId="+GetSettingsUUID("internal_deviceid")+"&");
+      streamURL = Utils::ReplaceAll(streamURL, "sid=&", "sid="+GetSettingsUUID("internal_sid")+"&");
 
       // generic
       streamURL = Utils::ReplaceAll(streamURL, "deviceType=&", "deviceType=web&");

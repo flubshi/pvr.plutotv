@@ -17,7 +17,8 @@
 					<dependency type="visible" operator="!is"
 						setting="system.platform.android">true</dependency>
 				</setting>
-				<setting id="run_is_info" type="string" label="30006" help="">
+				<setting id="run_is_info" type="string" label="30006"
+					help="">
 					<level>0</level>
 					<default />
 					<constraints>
@@ -28,6 +29,28 @@
 					</control>
 					<dependency type="visible" operator="!is"
 						setting="system.platform.android">true</dependency>
+				</setting>
+			</group>
+		</category>
+		<category id="debug" label="30040" help="">
+			<group id="1" label="">
+				<setting id="internal_sid" type="string" label="30041"
+					help="">
+					<level>3</level>
+					<default />
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string"></control>
+				</setting>
+				<setting id="internal_deviceid" type="string" label="30042"
+					help="">
+					<level>3</level>
+					<default />
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string"></control>
 				</setting>
 			</group>
 		</category>
