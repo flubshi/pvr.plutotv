@@ -22,3 +22,14 @@ msgctxt "#30007"
 msgid "(Re)install Widevine CDM library..."
 msgstr "Widevine CDM Bibliothek (erneut) installieren..."
 
+msgctxt "#30040"
+msgid "Debug"
+msgstr "Debug"
+
+msgctxt "#30041"
+msgid "SID"
+msgstr "SID"
+
+msgctxt "#30042"
+msgid "Device ID"
+msgstr "Device ID"

@@ -30,4 +30,5 @@ public:
   static std::string ReplaceAll(std::string str,
                                 const std::string& search,
                                 const std::string& replace);
+  static std::string get_uuid();
 };

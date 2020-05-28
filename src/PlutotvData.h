@@ -31,8 +31,6 @@
  * User Agent for HTTP Requests
  */
 static const std::string PLUTOTV_USER_AGENT = "Mozilla/5.0 (Windows NT 6.2; rv:24.0) Gecko/20100101 Firefox/24.0";
-static const std::string PLUTOTV_SID = "d0dfde10-a033-11ea-9802-d35ca32f067f"; // TODO dynamic
-static const std::string PLUTOTV_DEVICEID = "2a91fc04-f5e6-4d8e-9159-8720cbabda8b";
 
 class ATTRIBUTE_HIDDEN PlutotvData : public kodi::addon::CAddonBase,
                                    public kodi::addon::CInstancePVRClient
@@ -96,6 +94,7 @@ private:
 
   std::string GetChannelStreamUrl(int uniqueId);
   std::string GetLicense(void);
+  std::string GetSettingsUUID(std::string setting);
   void SetStreamProperties(std::vector<kodi::addon::PVRStreamProperty>& properties,
                            const std::string& url,
                            bool realtime);
