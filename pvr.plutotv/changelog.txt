@@ -1,0 +1,8 @@
+v0.0.3
+- Cleanup and prepare to move to kodi-pvr
+
+v0.0.2
+- Dynamic UUID for Device ID and SID
+
+v0.0.1
+- Initial alpha version

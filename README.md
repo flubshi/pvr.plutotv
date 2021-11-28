@@ -1,34 +1,34 @@
-[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](pvr.plutotv/LICENSE.txt)
-[![Build Status](https://travis-ci.org/flubshi/pvr.plutotv.svg?branch=Matrix)](https://travis-ci.org/flubshi/pvr.plutotv)
-[![Build Status](https://dev.azure.com/flubshi/pvr.plutotv/_apis/build/status/flubshi.pvr.plutotv?branchName=Matrix)](https://dev.azure.com/flubshi/pvr.plutotv/_build/latest?definitionId=2&branchName=Matrix)
-[![Build Status](https://jenkins.kodi.tv/buildStatus/icon?job=flubshi%2Fpvr.plutotv%2FMatrix)](https://jenkins.kodi.tv/job/flubshi/job/pvr.plutotv/job/Matrix/)
-
 # Pluto.tv PVR client for Kodi
+
 This is the Pluto.tv PVR client addon for [Kodi](https://kodi.tv). It provides Kodi integration for the TV streaming provider pluto.tv
 
-## Preview Images
-
-<img src="pvr.plutotv/resources/screenshots/screenshot-01.jpg" width="300" /> <img src="pvr.plutotv/resources/screenshots/screenshot-02.jpg" width="300" />
-
-## Installation
-
-- You need to compile from source.
-
-## Disclaimer
-
-This is an *unofficial* plugin. It is provided by volunteers and not related to pluto.tv.
-For any support regarding this plugin, please create a github issue.
-
+[![License: GPL-2.0-or-later](https://img.shields.io/badge/License-GPL%20v2+-blue.svg)](LICENSE.md)
+[![Build and run tests](https://github.com/kodi-pvr/pvr.plutotv/actions/workflows/build.yml/badge.svg?branch=Matrix)](https://github.com/kodi-pvr/pvr.plutotv/actions/workflows/build.yml)
+[![Build Status](https://dev.azure.com/teamkodi/kodi-pvr/_apis/build/status/kodi-pvr.pvr.plutotv?branchName=Matrix)](https://dev.azure.com/teamkodi/kodi-pvr/_build/latest?definitionId=62&branchName=Matrix)
+[![Build Status](https://jenkins.kodi.tv/view/Addons/job/kodi-pvr/job/pvr.plutotv/job/Matrix/badge/icon)](https://jenkins.kodi.tv/blue/organizations/jenkins/kodi-pvr%2Fpvr.plutotv/branches/)
+[![Coverity Scan Build Status](https://scan.coverity.com/projects/5120/badge.svg)](https://scan.coverity.com/projects/5120)
 
 ## Build instructions
 
+When building the addon you have to use the correct branch depending on which version of Kodi you're building against.
+If you want to build the addon to be compatible with the latest kodi `Matrix` commit, you need to checkout the branch with the current kodi codename.
+Also make sure you follow this README from the branch in question.
+
 ### Linux
 
-1. `git clone --branch master https://github.com/xbmc/xbmc.git`
-2. `git clone --branch Matrix https://github.com/flubshi/pvr.plutotv.git`
-3. `mkdir -p  xbmc/cmake/addons/addons/pvr.plutotv/`
-4. `echo "pvr.plutotv https://github.com/flubshi/pvr.plutotv master" > xbmc/cmake/addons/addons/pvr.plutotv/pvr.plutotv.txt`
-5. `cd pvr.plutotv && mkdir build && cd build`
-6. `cmake -DADDONS_TO_BUILD=pvr.plutotv -DADDON_SRC_PREFIX=../.. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../../xbmc/addons -DPACKAGE_ZIP=1 ../../xbmc/cmake/addons`
-7. `make`
+The following instructions assume you will have built Kodi already in the `kodi-build` directory
+suggested by the README.
 
+1. `git clone --branch Matrix https://github.com/xbmc/xbmc.git`
+2. `git clone --branch Matrix https://github.com/kodi-pvr/pvr.plutotv.git`
+3. `cd pvr.plutotv && mkdir build && cd build`
+4. `cmake -DADDONS_TO_BUILD=pvr.plutotv -DADDON_SRC_PREFIX=../.. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../../xbmc/kodi-build/addons -DPACKAGE_ZIP=1 ../../xbmc/cmake/addons`
+5. `make`
+
+The addon files will be placed in `../../xbmc/kodi-build/addons` so if you build Kodi from source and run it directly 
+the addon will be available as a system addon.
+
+##### Useful links
+
+* [Kodi's PVR user support](https://forum.kodi.tv/forumdisplay.php?fid=167)
+* [Kodi's PVR development support](https://forum.kodi.tv/forumdisplay.php?fid=136)

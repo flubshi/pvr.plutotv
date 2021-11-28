@@ -1,6 +1,12 @@
 /*
- * originally taken from pvr.zattoo
+ *  Copyright (C) 2021 Team Kodi (https://kodi.tv)
+ *
+ *  SPDX-License-Identifier: GPL-2.0-or-later
+ *  See LICENSE.md for more information.
+ *
+ *  Originally taken from pvr.zattoo (https://github.com/rbuehlma/pvr.zattoo)
  */
+
 #include "Curl.h"
 
 #include "Utils.h"
