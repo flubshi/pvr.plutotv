@@ -1,3 +1,6 @@
+v20.0.0
+- Initial Nexus version
+
 v0.0.4
 - Fix no EPG data if Kodi setting 'past days to display' is greater than zero
 
