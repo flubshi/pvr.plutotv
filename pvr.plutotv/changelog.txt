@@ -1,3 +1,6 @@
+v0.0.4
+- Fix no EPG data if Kodi setting 'past days to display' is greater than zero
+
 v0.0.3
 - Cleanup and prepare to move to kodi-pvr
 

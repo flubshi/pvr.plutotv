@@ -362,6 +362,13 @@ PVR_ERROR PlutotvData::GetEPGForChannel(int channelUid,
                                         time_t end,
                                         kodi::addon::PVREPGTagsResultSet& results)
 {
+  const time_t now = std::time(nullptr);
+  if (start < now)
+  {
+    kodi::Log(ADDON_LOG_DEBUG, "[epg] adjusting start time to 'now' minus 3 hrs");
+    start = now - 7200; // Pluto.tv API returns nothing if we step back (to wide) in time.
+  }
+
   for (unsigned int iChannelPtr = 0; iChannelPtr < m_channels.size(); iChannelPtr++)
   {
     PlutotvChannel& myChannel = m_channels.at(iChannelPtr);
