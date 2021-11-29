@@ -33,7 +33,6 @@ using namespace std;
 using namespace rapidjson;
 
 
-
 // BEGIN CURL helpers from zattoo addon:
 string PlutotvData::HttpGet(const string& url)
 {
@@ -97,7 +96,7 @@ ADDON_STATUS PlutotvData::GetStatus()
 }
 
 ADDON_STATUS PlutotvData::SetSetting(const std::string& settingName,
-                                   const kodi::CSettingValue& settingValue)
+                                     const kodi::CSettingValue& settingValue)
 {
   return ADDON_STATUS_OK;
 }
@@ -129,8 +128,8 @@ PVR_ERROR PlutotvData::GetConnectionString(std::string& connection)
 }
 
 void PlutotvData::SetStreamProperties(std::vector<kodi::addon::PVRStreamProperty>& properties,
-                                    const std::string& url,
-                                    bool realtime)
+                                      const std::string& url,
+                                      bool realtime)
 {
   kodi::Log(ADDON_LOG_DEBUG, "[PLAY STREAM] url: %s", url.c_str());
 
@@ -175,7 +174,7 @@ bool PlutotvData::LoadChannelData(void)
   int i = 0;
   for (const auto& channel : channelsDoc["result"].GetArray())
   {
-      /**
+    /**
       {
       "_id":"5ad9b648e738977e2c312131",
       "slug":"aa02",
@@ -229,20 +228,25 @@ bool PlutotvData::LoadChannelData(void)
     kodi::Log(ADDON_LOG_DEBUG, "[channel] name: %s;", plutotv_channel.strChannelName.c_str());
 
     string logo = "";
-    if(channel.HasMember("logo")){
-	logo = channel["logo"]["path"].GetString();
-    }else if(channel.HasMember("colorLogoPNG")){
-	logo = channel["colorLogoPNG"]["path"].GetString();
+    if (channel.HasMember("logo"))
+    {
+      logo = channel["logo"]["path"].GetString();
+    }
+    else if (channel.HasMember("colorLogoPNG"))
+    {
+      logo = channel["colorLogoPNG"]["path"].GetString();
     }
 
     plutotv_channel.strIconPath = logo;
     kodi::Log(ADDON_LOG_DEBUG, "[channel] logo: %s;", plutotv_channel.strIconPath.c_str());
 
     // plutotv_channel.strStreamURL
-    if(channel.HasMember("stitched") && channel["stitched"].HasMember("urls") && channel["stitched"]["urls"].Size() > 0){
-	string streamURL = channel["stitched"]["urls"][0]["url"].GetString();
-	plutotv_channel.strStreamURL = streamURL;
-	kodi::Log(ADDON_LOG_DEBUG, "[channel] streamURL: %s;", streamURL.c_str());
+    if (channel.HasMember("stitched") && channel["stitched"].HasMember("urls") &&
+        channel["stitched"]["urls"].Size() > 0)
+    {
+      string streamURL = channel["stitched"]["urls"][0]["url"].GetString();
+      plutotv_channel.strStreamURL = streamURL;
+      kodi::Log(ADDON_LOG_DEBUG, "[channel] streamURL: %s;", streamURL.c_str());
     }
 
     m_channels.push_back(plutotv_channel);
@@ -299,12 +303,12 @@ PVR_ERROR PlutotvData::GetChannelStreamProperties(
 string PlutotvData::GetSettingsUUID(string setting)
 {
   string uuid = kodi::GetSettingString(setting);
-  if(uuid.empty())
-    {
-      uuid = Utils::get_uuid();
-      kodi::Log(ADDON_LOG_DEBUG, "uuid (generated): %s", uuid.c_str());
-      kodi::SetSettingString(setting,uuid);
-    }
+  if (uuid.empty())
+  {
+    uuid = Utils::get_uuid();
+    kodi::Log(ADDON_LOG_DEBUG, "uuid (generated): %s", uuid.c_str());
+    kodi::SetSettingString(setting, uuid);
+  }
   return uuid;
 }
 
@@ -320,16 +324,22 @@ string PlutotvData::GetChannelStreamUrl(int uniqueId)
       kodi::Log(ADDON_LOG_DEBUG, "URL source: %s", streamURL.c_str());
 
 
-      if(Utils::ends_with(streamURL, "?deviceType="))
-	{
-	  // lazy approach by plugin.video.plutotv
-	  streamURL = Utils::ReplaceAll(streamURL, "deviceType=","deviceType=&deviceMake=&deviceModel=&&deviceVersion=unknown&appVersion=unknown&deviceDNT=0&userId=&advertisingId=&app_name=&appName=&buildVersion=&appStoreUrl=&architecture=&includeExtendedEvents=false");
-	}
+      if (Utils::ends_with(streamURL, "?deviceType="))
+      {
+        // lazy approach by plugin.video.plutotv
+        streamURL = Utils::ReplaceAll(
+            streamURL, "deviceType=",
+            "deviceType=&deviceMake=&deviceModel=&&deviceVersion=unknown&appVersion=unknown&"
+            "deviceDNT=0&userId=&advertisingId=&app_name=&appName=&buildVersion=&appStoreUrl=&"
+            "architecture=&includeExtendedEvents=false");
+      }
 
       //if 'sid' not in streamURL
       //streamURL = Utils::ReplaceAll(streamURL,"deviceModel=&","deviceModel=&sid="+PLUTOTV_SID+"&deviceId="+PLUTOTV_DEVICEID+"&");
-      streamURL = Utils::ReplaceAll(streamURL, "deviceId=&", "deviceId="+GetSettingsUUID("internal_deviceid")+"&");
-      streamURL = Utils::ReplaceAll(streamURL, "sid=&", "sid="+GetSettingsUUID("internal_sid")+"&");
+      streamURL = Utils::ReplaceAll(streamURL, "deviceId=&",
+                                    "deviceId=" + GetSettingsUUID("internal_deviceid") + "&");
+      streamURL =
+          Utils::ReplaceAll(streamURL, "sid=&", "sid=" + GetSettingsUUID("internal_sid") + "&");
 
       // generic
       streamURL = Utils::ReplaceAll(streamURL, "deviceType=&", "deviceType=web&");
@@ -355,15 +365,15 @@ PVR_ERROR PlutotvData::GetChannelGroups(bool radio, kodi::addon::PVRChannelGroup
 }
 
 PVR_ERROR PlutotvData::GetChannelGroupMembers(const kodi::addon::PVRChannelGroup& group,
-                                            kodi::addon::PVRChannelGroupMembersResultSet& results)
+                                              kodi::addon::PVRChannelGroupMembersResultSet& results)
 {
   return PVR_ERROR_NOT_IMPLEMENTED;
 }
 
 PVR_ERROR PlutotvData::GetEPGForChannel(int channelUid,
-                                      time_t start,
-                                      time_t end,
-                                      kodi::addon::PVREPGTagsResultSet& results)
+                                        time_t start,
+                                        time_t end,
+                                        kodi::addon::PVREPGTagsResultSet& results)
 {
   for (unsigned int iChannelPtr = 0; iChannelPtr < m_channels.size(); iChannelPtr++)
   {
@@ -381,29 +391,33 @@ PVR_ERROR PlutotvData::GetEPGForChannel(int channelUid,
     // 2020-05-27T15:04:05Z
     std::strftime(endTime, 32, "%Y-%m-%dT%H:%M:%SZ", petm);
 
-    string url = "http://api.pluto.tv/v2/channels?start="+string(startTime)+"&stop="+string(endTime);
+    string url =
+        "http://api.pluto.tv/v2/channels?start=" + string(startTime) + "&stop=" + string(endTime);
 
     Document epgDoc;
-    if(url == cache_url){
-	epgDoc.CopyFrom(cache_document, epgDoc.GetAllocator());
-    }else{
-	string jsonEpg = HttpGet (url);
-	kodi::Log (ADDON_LOG_DEBUG, "[epg-all] %s", jsonEpg.c_str ());
-	if (jsonEpg.size () == 0)
-	{
-	    kodi::Log (ADDON_LOG_ERROR, "[epg] empty server response");
-	    return PVR_ERROR_SERVER_ERROR;
-	 }
-	 jsonEpg = "{\"result\": " + jsonEpg + "}";
+    if (url == cache_url)
+    {
+      epgDoc.CopyFrom(cache_document, epgDoc.GetAllocator());
+    }
+    else
+    {
+      string jsonEpg = HttpGet(url);
+      kodi::Log(ADDON_LOG_DEBUG, "[epg-all] %s", jsonEpg.c_str());
+      if (jsonEpg.size() == 0)
+      {
+        kodi::Log(ADDON_LOG_ERROR, "[epg] empty server response");
+        return PVR_ERROR_SERVER_ERROR;
+      }
+      jsonEpg = "{\"result\": " + jsonEpg + "}";
 
-	 epgDoc.Parse (jsonEpg.c_str ());
-	 if (epgDoc.GetParseError ())
-	 {
-	   kodi::Log(ADDON_LOG_ERROR, "[GetEPG] ERROR: error while parsing json");
-	   return PVR_ERROR_SERVER_ERROR;
-	 }
-	 cache_document.CopyFrom(epgDoc, cache_document.GetAllocator());
-	 cache_url = url;
+      epgDoc.Parse(jsonEpg.c_str());
+      if (epgDoc.GetParseError())
+      {
+        kodi::Log(ADDON_LOG_ERROR, "[GetEPG] ERROR: error while parsing json");
+        return PVR_ERROR_SERVER_ERROR;
+      }
+      cache_document.CopyFrom(epgDoc, cache_document.GetAllocator());
+      cache_url = url;
     }
 
 
@@ -413,101 +427,95 @@ PVR_ERROR PlutotvData::GetEPGForChannel(int channelUid,
 
     for (const auto& epgChannel : epgDoc["result"].GetArray())
     {
-	if(epgChannel["_id"].GetString() != myChannel.plutotvID)
-	  continue;
+      if (epgChannel["_id"].GetString() != myChannel.plutotvID)
+        continue;
 
-	for(const auto& epgData : epgChannel["timelines"].GetArray())
-	{
-	    kodi::addon::PVREPGTag tag;
+      for (const auto& epgData : epgChannel["timelines"].GetArray())
+      {
+        kodi::addon::PVREPGTag tag;
 
-//    "timelines":[{
-//          "_id":"5eccebf293483f0007d9ae18",
-//          "start":"2020-05-27T15:41:00.000Z",
-//          "stop":"2020-05-27T16:06:00.000Z",
-//          "title":"Planet Max: Die Affengrippe",
-//          "episode":{
-//             "_id":"5d0b449900557a40f64a71ee",
-//             "number":124,
-//             "description":"Nesmith hat einen Schnupfen. Max, der glaubt, dass Nesmith Luft verliert und bald platt sein wird, glaubt, dass nur eine Banane Nesmith retten kann. Und so machen sich Max, Aseefa und Doppy auf die Suche nach dem rettenden Heilmittel.",
-//             "duration":1500000,
-//             "genre":"News and Information",
-//             "subGenre":"Entertaining",
-//             "distributeAs":{ "AVOD":true },
-//             "clip":{  "originalReleaseDate":"2020-05-27T17:53:04.127Z"},
-//             "rating":"FSK-6",
-//             "name":"Die Affengrippe",
-//             "poster":{ "path":"http://images.pluto.tv/assets/images/default/vod.poster-default.jpg?w=694\u0026h=1000\u0026fm=jpg\u0026q=75\u0026fit=fill\u0026fill=blur" },
-//             "thumbnail":{ "path":"http://s3.amazonaws.com/silo.pluto.tv/origin/bluevo/nickelodeon/production/201906/20/nickelodeon_5d0a5767621cc_Planet-Max-DE-Die-Affengrippe-S1E124_1561019544860.jpg?w=440\u0026h=440\u0026fm=jpg\u0026q=75\u0026fit=fill\u0026fill=blur" },
-//             "liveBroadcast":false,
-//             "featuredImage":{ "path":"http://s3.amazonaws.com/silo.pluto.tv/origin/bluevo/nickelodeon/production/201906/20/nickelodeon_5d0a5767621cc_Planet-Max-DE-Die-Affengrippe-S1E124_1561019544860.jpg?w=1600\u0026h=900\u0026fm=jpg\u0026q=75\u0026fit=fill\u0026fill=blur" },
-//             "series":{
-//                "_id":"5d0b449100557a40f64a71ad",
-//                "name":"Planet Max",
-//                "type":"tv",
-//                "tile":{"path":"http://images.pluto.tv/series/5d0b449100557a40f64a71ad/tile.jpg?w=660\u0026h=660\u0026fm=jpg\u0026q=75\u0026fit=fill\u0026fill=blur" },
-//                "description":"Max, der beste Freund von Jimmy Neutron, schaut sich in Jimmys Labor um u.... Zeenu.",
-//                "summary":"Max, der beste Freund von Jimmy Neut ... chließlich auf dem Planeten Zeenu.",
-//                "featuredImage":{
-//                   "path":"http://images.pluto.tv/series/5d0b449100557a40f64a71ad/featuredImage.jpg?w=1600\u0026h=900\u0026fm=jpg\u0026q=75\u0026fit=fill\u0026fill=blur"
-//                } }  }   },
+        //    "timelines":[{
+        //          "_id":"5eccebf293483f0007d9ae18",
+        //          "start":"2020-05-27T15:41:00.000Z",
+        //          "stop":"2020-05-27T16:06:00.000Z",
+        //          "title":"Planet Max: Die Affengrippe",
+        //          "episode":{
+        //             "_id":"5d0b449900557a40f64a71ee",
+        //             "number":124,
+        //             "description":"Nesmith hat einen Schnupfen. Max, der glaubt, dass Nesmith Luft verliert und bald platt sein wird, glaubt, dass nur eine Banane Nesmith retten kann. Und so machen sich Max, Aseefa und Doppy auf die Suche nach dem rettenden Heilmittel.",
+        //             "duration":1500000,
+        //             "genre":"News and Information",
+        //             "subGenre":"Entertaining",
+        //             "distributeAs":{ "AVOD":true },
+        //             "clip":{  "originalReleaseDate":"2020-05-27T17:53:04.127Z"},
+        //             "rating":"FSK-6",
+        //             "name":"Die Affengrippe",
+        //             "poster":{ "path":"http://images.pluto.tv/assets/images/default/vod.poster-default.jpg?w=694\u0026h=1000\u0026fm=jpg\u0026q=75\u0026fit=fill\u0026fill=blur" },
+        //             "thumbnail":{ "path":"http://s3.amazonaws.com/silo.pluto.tv/origin/bluevo/nickelodeon/production/201906/20/nickelodeon_5d0a5767621cc_Planet-Max-DE-Die-Affengrippe-S1E124_1561019544860.jpg?w=440\u0026h=440\u0026fm=jpg\u0026q=75\u0026fit=fill\u0026fill=blur" },
+        //             "liveBroadcast":false,
+        //             "featuredImage":{ "path":"http://s3.amazonaws.com/silo.pluto.tv/origin/bluevo/nickelodeon/production/201906/20/nickelodeon_5d0a5767621cc_Planet-Max-DE-Die-Affengrippe-S1E124_1561019544860.jpg?w=1600\u0026h=900\u0026fm=jpg\u0026q=75\u0026fit=fill\u0026fill=blur" },
+        //             "series":{
+        //                "_id":"5d0b449100557a40f64a71ad",
+        //                "name":"Planet Max",
+        //                "type":"tv",
+        //                "tile":{"path":"http://images.pluto.tv/series/5d0b449100557a40f64a71ad/tile.jpg?w=660\u0026h=660\u0026fm=jpg\u0026q=75\u0026fit=fill\u0026fill=blur" },
+        //                "description":"Max, der beste Freund von Jimmy Neutron, schaut sich in Jimmys Labor um u.... Zeenu.",
+        //                "summary":"Max, der beste Freund von Jimmy Neut ... chließlich auf dem Planeten Zeenu.",
+        //                "featuredImage":{
+        //                   "path":"http://images.pluto.tv/series/5d0b449100557a40f64a71ad/featuredImage.jpg?w=1600\u0026h=900\u0026fm=jpg\u0026q=75\u0026fit=fill\u0026fill=blur"
+        //                } }  }   },
 
-	      // generate a unique boadcast id
-	      string epg_bid = epgData["_id"].GetString();
-	      kodi::Log (ADDON_LOG_DEBUG, "[epg] epg_bid: %s;",
-			 epg_bid.c_str ());
-	      int dirtyID = Utils::GetIDDirty (epg_bid);
-	      kodi::Log (ADDON_LOG_DEBUG, "[epg] epg_bid dirty: %i;", dirtyID);
-	      tag.SetUniqueBroadcastId (dirtyID);
+        // generate a unique boadcast id
+        string epg_bid = epgData["_id"].GetString();
+        kodi::Log(ADDON_LOG_DEBUG, "[epg] epg_bid: %s;", epg_bid.c_str());
+        int dirtyID = Utils::GetIDDirty(epg_bid);
+        kodi::Log(ADDON_LOG_DEBUG, "[epg] epg_bid dirty: %i;", dirtyID);
+        tag.SetUniqueBroadcastId(dirtyID);
 
-	      // channel ID
-	      tag.SetUniqueChannelId (myChannel.iUniqueId);
+        // channel ID
+        tag.SetUniqueChannelId(myChannel.iUniqueId);
 
-	      // set title
-	      tag.SetTitle (epgData["title"].GetString ());
-	      kodi::Log (ADDON_LOG_DEBUG, "[epg] title: %s;", epgData["title"].GetString ());
+        // set title
+        tag.SetTitle(epgData["title"].GetString());
+        kodi::Log(ADDON_LOG_DEBUG, "[epg] title: %s;", epgData["title"].GetString());
 
-	      // set startTime
-	      string startTime = epgData["start"].GetString();
-	      tag.SetStartTime(Utils::StringToTime (startTime));
+        // set startTime
+        string startTime = epgData["start"].GetString();
+        tag.SetStartTime(Utils::StringToTime(startTime));
 
-	      // set endTime
-	      string endTime = epgData["stop"].GetString ();
-	      tag.SetEndTime(Utils::StringToTime (endTime));
+        // set endTime
+        string endTime = epgData["stop"].GetString();
+        tag.SetEndTime(Utils::StringToTime(endTime));
 
-	      if (epgData.HasMember ("episode"))
-		{
+        if (epgData.HasMember("episode"))
+        {
 
-		  // set description
-		  if (epgData["episode"].HasMember ("description")
-		      && epgData["episode"]["description"].IsString())
-		    {
-		      tag.SetPlot (
-			  epgData["episode"]["description"].GetString ());
-		      kodi::Log (
-			  ADDON_LOG_DEBUG, "[epg] description: %s;",
-			  epgData["episode"]["description"].GetString ());
-		    }
+          // set description
+          if (epgData["episode"].HasMember("description") &&
+              epgData["episode"]["description"].IsString())
+          {
+            tag.SetPlot(epgData["episode"]["description"].GetString());
+            kodi::Log(ADDON_LOG_DEBUG, "[epg] description: %s;",
+                      epgData["episode"]["description"].GetString());
+          }
 
-		  // genre
-		  if (epgData["episode"].HasMember ("genre")
-		      && epgData["episode"]["genre"].IsString())
-		    {
-		      tag.SetGenreType (EPG_GENRE_USE_STRING);
-		      tag.SetGenreDescription (
-			  epgData["episode"]["genre"].GetString ());
-		    }
+          // genre
+          if (epgData["episode"].HasMember("genre") && epgData["episode"]["genre"].IsString())
+          {
+            tag.SetGenreType(EPG_GENRE_USE_STRING);
+            tag.SetGenreDescription(epgData["episode"]["genre"].GetString());
+          }
 
-		  // thumbnail
-		  if (epgData["episode"].HasMember ("thumbnail")
-		      && epgData["episode"]["thumbnail"]["path"].IsString())
-		    {
-		      tag.SetIconPath (
-			  epgData["episode"]["thumbnail"]["path"].GetString ());
-		    }
-		}
+          // thumbnail
+          if (epgData["episode"].HasMember("thumbnail") &&
+              epgData["episode"]["thumbnail"]["path"].IsString())
+          {
+            tag.SetIconPath(epgData["episode"]["thumbnail"]["path"].GetString());
+          }
+        }
 
-	    results.Add(tag);
-	}
+        results.Add(tag);
+      }
     }
   }
   return PVR_ERROR_NO_ERROR;

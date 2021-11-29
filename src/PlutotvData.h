@@ -29,10 +29,11 @@
 /**
  * User Agent for HTTP Requests
  */
-static const std::string PLUTOTV_USER_AGENT = "Mozilla/5.0 (Windows NT 6.2; rv:24.0) Gecko/20100101 Firefox/24.0";
+static const std::string PLUTOTV_USER_AGENT =
+    "Mozilla/5.0 (Windows NT 6.2; rv:24.0) Gecko/20100101 Firefox/24.0";
 
 class ATTRIBUTE_HIDDEN PlutotvData : public kodi::addon::CAddonBase,
-                                   public kodi::addon::CInstancePVRClient
+                                     public kodi::addon::CInstancePVRClient
 {
 public:
   PlutotvData() = default;
@@ -69,7 +70,6 @@ public:
 
 
 private:
-
   struct PlutotvChannel
   {
     int iUniqueId;
@@ -101,8 +101,13 @@ private:
   std::string HttpGet(const std::string& url);
   std::string HttpDelete(const std::string& url, const std::string& postData);
   std::string HttpPost(const std::string& url, const std::string& postData);
-  std::string HttpRequest(const std::string& action, const std::string& url, const std::string& postData);
-  std::string HttpRequestToCurl(
-      Curl& curl, const std::string& action, const std::string& url, const std::string& postData, int& statusCode);
+  std::string HttpRequest(const std::string& action,
+                          const std::string& url,
+                          const std::string& postData);
+  std::string HttpRequestToCurl(Curl& curl,
+                                const std::string& action,
+                                const std::string& url,
+                                const std::string& postData,
+                                int& statusCode);
   bool LoadChannelData(void);
 };
