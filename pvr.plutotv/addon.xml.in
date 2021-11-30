@@ -22,8 +22,10 @@
       <screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
       <screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
     </assets>
+    <summary lang="da_DK">Pluto.tv PVR-klient</summary>
     <summary lang="de_DE">Pluto.tv PVR Client</summary>
     <summary lang="en_GB">Pluto.tv PVR Client</summary>
+    <description lang="da_DK">Pluto.tv PVR-klient. Bemærk: Dette er ikke et officielt pluto.tv-add-on og er ikke relateret til pluto.tv. Det er udviklet af frivillige.</description>
     <description lang="de_DE">Pluto.tv PVR Client. Hinweis: Dies ist kein offizielles Pluto.tv-Addon und steht nicht in Verbindung zu Pluto.tv. Es wurde von Freiwilligen entwickelt.</description>
     <description lang="en_GB">Pluto.tv PVR Client. Note: This is not an official pluto.tv add-on and not related to pluto.tv. It was developed by volunteers.</description>
   </extension>
