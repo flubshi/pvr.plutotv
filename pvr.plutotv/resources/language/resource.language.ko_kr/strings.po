@@ -4,40 +4,45 @@
 # Addon Provider: Team Kodi
 msgid ""
 msgstr ""
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
+"PO-Revision-Date: 2021-12-07 12:13+0000\n"
+"Last-Translator: Minho Park <parkmino@gmail.com>\n"
+"Language-Team: Korean <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-plutotv/ko_kr/>\n"
 "Language: ko_kr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.9.1\n"
 
 msgctxt "Addon Summary"
 msgid "Pluto.tv PVR Client"
-msgstr ""
+msgstr "Pluto.tv PVR 클라이언트"
 
 msgctxt "Addon Description"
 msgid "Pluto.tv PVR Client. Note: This is not an official pluto.tv add-on and not related to pluto.tv. It was developed by volunteers."
-msgstr ""
+msgstr "Pluto.tv PVR 클라이언트. 참고 : 이것은 공식 pluto.tv 애드온이 아니며 pluto.tv와 관련이 없습니다. 자원 봉사자가 개발했습니다."
 
 msgctxt "#30001"
 msgid "General"
-msgstr ""
+msgstr "일반"
 
 msgctxt "#30006"
 msgid "InputStream Helper information"
-msgstr ""
+msgstr "InputStream 도움 정보"
 
 msgctxt "#30007"
 msgid "(Re)install Widevine CDM library"
-msgstr ""
+msgstr "Widevine CDM 라이브러리 (재)설치"
 
 msgctxt "#30040"
 msgid "Debug"
-msgstr ""
+msgstr "디버그"
 
 msgctxt "#30041"
 msgid "SID"
-msgstr ""
+msgstr "SID"
 
 msgctxt "#30042"
 msgid "Device ID"
-msgstr ""
+msgstr "장치 ID"
