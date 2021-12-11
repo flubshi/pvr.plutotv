@@ -1,3 +1,6 @@
+v20.0.1
+- Speedup and fix EPG data caching
+
 v20.0.0
 - Initial Nexus version
 
