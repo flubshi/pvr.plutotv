@@ -68,12 +68,11 @@ private:
     std::string strStreamURL;
   };
 
-  rapidjson::Document cache_document;
-  std::string cache_url = "";
-
+  rapidjson::Document m_epg_cache_document;
+  time_t m_epg_cache_start = time_t(0);
+  time_t m_epg_cache_end = time_t(0);;
 
   ADDON_STATUS m_curStatus = ADDON_STATUS_OK;
-
 
   std::vector<PlutotvChannel> m_channels;
 

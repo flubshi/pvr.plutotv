@@ -16,9 +16,6 @@
 #include <ctime>
 #include <regex>
 
-using namespace rapidjson;
-
-
 // BEGIN CURL helpers from zattoo addon:
 std::string PlutotvData::HttpGet(const std::string& url)
 {
@@ -152,7 +149,7 @@ bool PlutotvData::LoadChannelData(void)
 
   // parse channels
   kodi::Log(ADDON_LOG_DEBUG, "[channels] parse channels");
-  Document channelsDoc;
+  rapidjson::Document channelsDoc;
   channelsDoc.Parse(jsonChannels.c_str());
   if (channelsDoc.GetParseError())
   {
@@ -366,39 +363,42 @@ PVR_ERROR PlutotvData::GetEPGForChannel(int channelUid,
                                         time_t end,
                                         kodi::addon::PVREPGTagsResultSet& results)
 {
-  const time_t now = std::time(nullptr);
-  if (start < now)
-  {
-    kodi::Log(ADDON_LOG_DEBUG, "[epg] adjusting start time to 'now' minus 3 hrs");
-    start = now - 7200; // Pluto.tv API returns nothing if we step back (to wide) in time.
-  }
-
+  // Find channel data
   for (unsigned int iChannelPtr = 0; iChannelPtr < m_channels.size(); iChannelPtr++)
   {
     PlutotvChannel& myChannel = m_channels.at(iChannelPtr);
     if (myChannel.iUniqueId != channelUid)
       continue;
 
-    char startTime[100];
-    std::tm* pstm = std::localtime(&start);
-    // 2020-05-27T15:04:05Z
-    std::strftime(startTime, 32, "%Y-%m-%dT%H:%M:%SZ", pstm);
-
-    char endTime[100];
-    std::tm* petm = std::localtime(&end);
-    // 2020-05-27T15:04:05Z
-    std::strftime(endTime, 32, "%Y-%m-%dT%H:%M:%SZ", petm);
-
-    std::string url = "http://api.pluto.tv/v2/channels?start=" + std::string(startTime) +
-                      "&stop=" + std::string(endTime);
-
-    Document epgDoc;
-    if (url == cache_url)
+    // Channel data found
+    rapidjson::Document epgDoc;
+    if (start == m_epg_cache_start && end == m_epg_cache_end)
     {
-      epgDoc.CopyFrom(cache_document, epgDoc.GetAllocator());
+      epgDoc.CopyFrom(m_epg_cache_document, epgDoc.GetAllocator());
     }
     else
     {
+      const time_t orig_start = start;
+      const time_t now = std::time(nullptr);
+      if (orig_start < now)
+      {
+        kodi::Log(ADDON_LOG_DEBUG, "[epg] adjusting start time to 'now' minus 3 hrs");
+        start = now - 7200; // Pluto.tv API returns nothing if we step back (to wide) in time.
+      }
+
+      const std::tm* pstm = std::localtime(&start);
+      // 2020-05-27T15:04:05Z
+      char startTime[21] = "";
+      std::strftime(startTime, 20, "%Y-%m-%dT%H:%M:%SZ", pstm);
+
+      const std::tm* petm = std::localtime(&end);
+      // 2020-05-27T15:04:05Z
+      char endTime[21] = "";
+      std::strftime(endTime, 20, "%Y-%m-%dT%H:%M:%SZ", petm);
+
+      const std::string url = "http://api.pluto.tv/v2/channels?start=" + std::string(startTime) +
+                              "&stop=" + std::string(endTime);
+
       std::string jsonEpg = HttpGet(url);
       kodi::Log(ADDON_LOG_DEBUG, "[epg-all] %s", jsonEpg.c_str());
       if (jsonEpg.size() == 0)
@@ -414,20 +414,23 @@ PVR_ERROR PlutotvData::GetEPGForChannel(int channelUid,
         kodi::Log(ADDON_LOG_ERROR, "[GetEPG] ERROR: error while parsing json");
         return PVR_ERROR_SERVER_ERROR;
       }
-      cache_document.CopyFrom(epgDoc, cache_document.GetAllocator());
-      cache_url = url;
-    }
 
+      m_epg_cache_document.CopyFrom(epgDoc, m_epg_cache_document.GetAllocator());
+      m_epg_cache_start = orig_start;
+      m_epg_cache_end = end;
+    }
 
     kodi::Log(ADDON_LOG_DEBUG, "[epg] iterate entries");
 
     kodi::Log(ADDON_LOG_DEBUG, "[epg] size: %i;", epgDoc["result"].Size());
 
+    // Find EPG data
     for (const auto& epgChannel : epgDoc["result"].GetArray())
     {
       if (epgChannel["_id"].GetString() != myChannel.plutotvID)
         continue;
 
+      // EPG data found
       for (const auto& epgData : epgChannel["timelines"].GetArray())
       {
         kodi::addon::PVREPGTag tag;
@@ -514,9 +517,14 @@ PVR_ERROR PlutotvData::GetEPGForChannel(int channelUid,
 
         results.Add(tag);
       }
+      return PVR_ERROR_NO_ERROR;
     }
+    // EPG for channel not found. This is not an error. Channel might just have no EPG data.
+    return PVR_ERROR_NO_ERROR;
   }
-  return PVR_ERROR_NO_ERROR;
+
+  kodi::Log(ADDON_LOG_ERROR, "[GetEPG] ERROR: channel not found");
+  return PVR_ERROR_INVALID_PARAMETERS;
 }
 
 ADDONCREATOR(PlutotvData)
