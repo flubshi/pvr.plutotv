@@ -16,27 +16,28 @@
 #include <ctime>
 #include <regex>
 
-using namespace std;
 using namespace rapidjson;
 
 
 // BEGIN CURL helpers from zattoo addon:
-string PlutotvData::HttpGet(const string& url)
+std::string PlutotvData::HttpGet(const std::string& url)
 {
   return HttpRequest("GET", url, "");
 }
 
-string PlutotvData::HttpDelete(const string& url, const string& postData)
+std::string PlutotvData::HttpDelete(const std::string& url, const std::string& postData)
 {
   return HttpRequest("DELETE", url, postData);
 }
 
-string PlutotvData::HttpPost(const string& url, const string& postData)
+std::string PlutotvData::HttpPost(const std::string& url, const std::string& postData)
 {
   return HttpRequest("POST", url, postData);
 }
 
-string PlutotvData::HttpRequest(const string& action, const string& url, const string& postData)
+std::string PlutotvData::HttpRequest(const std::string& action,
+                                     const std::string& url,
+                                     const std::string& postData)
 {
   Curl curl;
   int statusCode;
@@ -45,11 +46,14 @@ string PlutotvData::HttpRequest(const string& action, const string& url, const s
   return HttpRequestToCurl(curl, action, url, postData, statusCode);
 }
 
-string PlutotvData::HttpRequestToCurl(
-    Curl& curl, const string& action, const string& url, const string& postData, int& statusCode)
+std::string PlutotvData::HttpRequestToCurl(Curl& curl,
+                                           const std::string& action,
+                                           const std::string& url,
+                                           const std::string& postData,
+                                           int& statusCode)
 {
   kodi::Log(ADDON_LOG_DEBUG, "Http-Request: %s %s.", action.c_str(), url.c_str());
-  string content;
+  std::string content;
   if (action == "POST")
   {
     content = curl.Post(url, postData, statusCode);
@@ -134,7 +138,7 @@ bool PlutotvData::LoadChannelData(void)
 {
   kodi::Log(ADDON_LOG_DEBUG, "[load data] Login valid -> GET CHANNELS");
 
-  string jsonChannels = HttpGet("https://api.pluto.tv/v2/channels.json");
+  std::string jsonChannels = HttpGet("https://api.pluto.tv/v2/channels.json");
   if (jsonChannels.size() == 0)
   {
     kodi::Log(ADDON_LOG_ERROR, "[channels] ERROR - empty response");
@@ -197,7 +201,7 @@ bool PlutotvData::LoadChannelData(void)
          "sessionURL":"https://service-stitcher.clusters.pluto.tv/session/.json"
       }}, */
 
-    string plutotvid = channel["_id"].GetString();
+    std::string plutotvid = channel["_id"].GetString();
     ++i;
     PlutotvChannel plutotv_channel;
     plutotv_channel.iChannelNumber = i; // position
@@ -210,11 +214,11 @@ bool PlutotvData::LoadChannelData(void)
     plutotv_channel.iUniqueId = uniqueId;
     kodi::Log(ADDON_LOG_DEBUG, "[channel] id: %i;", uniqueId);
 
-    string displayName = channel["name"].GetString();
+    std::string displayName = channel["name"].GetString();
     plutotv_channel.strChannelName = displayName;
     kodi::Log(ADDON_LOG_DEBUG, "[channel] name: %s;", plutotv_channel.strChannelName.c_str());
 
-    string logo = "";
+    std::string logo = "";
     if (channel.HasMember("logo"))
     {
       logo = channel["logo"]["path"].GetString();
@@ -231,7 +235,7 @@ bool PlutotvData::LoadChannelData(void)
     if (channel.HasMember("stitched") && channel["stitched"].HasMember("urls") &&
         channel["stitched"]["urls"].Size() > 0)
     {
-      string streamURL = channel["stitched"]["urls"][0]["url"].GetString();
+      std::string streamURL = channel["stitched"]["urls"][0]["url"].GetString();
       plutotv_channel.strStreamURL = streamURL;
       kodi::Log(ADDON_LOG_DEBUG, "[channel] streamURL: %s;", streamURL.c_str());
     }
@@ -276,7 +280,7 @@ PVR_ERROR PlutotvData::GetChannels(bool radio, kodi::addon::PVRChannelsResultSet
 PVR_ERROR PlutotvData::GetChannelStreamProperties(
     const kodi::addon::PVRChannel& channel, std::vector<kodi::addon::PVRStreamProperty>& properties)
 {
-  string strUrl = GetChannelStreamUrl(channel.GetUniqueId());
+  std::string strUrl = GetChannelStreamUrl(channel.GetUniqueId());
   kodi::Log(ADDON_LOG_DEBUG, "Stream URL -> %s", strUrl.c_str());
   PVR_ERROR ret = PVR_ERROR_FAILED;
   if (!strUrl.empty())
@@ -287,9 +291,9 @@ PVR_ERROR PlutotvData::GetChannelStreamProperties(
   return ret;
 }
 
-string PlutotvData::GetSettingsUUID(string setting)
+std::string PlutotvData::GetSettingsUUID(std::string setting)
 {
-  string uuid = kodi::GetSettingString(setting);
+  std::string uuid = kodi::GetSettingString(setting);
   if (uuid.empty())
   {
     uuid = Utils::get_uuid();
@@ -299,7 +303,7 @@ string PlutotvData::GetSettingsUUID(string setting)
   return uuid;
 }
 
-string PlutotvData::GetChannelStreamUrl(int uniqueId)
+std::string PlutotvData::GetChannelStreamUrl(int uniqueId)
 {
   for (const auto& thisChannel : m_channels)
   {
@@ -307,7 +311,7 @@ string PlutotvData::GetChannelStreamUrl(int uniqueId)
     {
       kodi::Log(ADDON_LOG_DEBUG, "Get live url for channel %s", thisChannel.strChannelName.c_str());
 
-      string streamURL = thisChannel.strStreamURL;
+      std::string streamURL = thisChannel.strStreamURL;
       kodi::Log(ADDON_LOG_DEBUG, "URL source: %s", streamURL.c_str());
 
 
@@ -385,8 +389,8 @@ PVR_ERROR PlutotvData::GetEPGForChannel(int channelUid,
     // 2020-05-27T15:04:05Z
     std::strftime(endTime, 32, "%Y-%m-%dT%H:%M:%SZ", petm);
 
-    string url =
-        "http://api.pluto.tv/v2/channels?start=" + string(startTime) + "&stop=" + string(endTime);
+    std::string url = "http://api.pluto.tv/v2/channels?start=" + std::string(startTime) +
+                      "&stop=" + std::string(endTime);
 
     Document epgDoc;
     if (url == cache_url)
@@ -395,7 +399,7 @@ PVR_ERROR PlutotvData::GetEPGForChannel(int channelUid,
     }
     else
     {
-      string jsonEpg = HttpGet(url);
+      std::string jsonEpg = HttpGet(url);
       kodi::Log(ADDON_LOG_DEBUG, "[epg-all] %s", jsonEpg.c_str());
       if (jsonEpg.size() == 0)
       {
@@ -460,7 +464,7 @@ PVR_ERROR PlutotvData::GetEPGForChannel(int channelUid,
         //                } }  }   },
 
         // generate a unique boadcast id
-        string epg_bid = epgData["_id"].GetString();
+        std::string epg_bid = epgData["_id"].GetString();
         kodi::Log(ADDON_LOG_DEBUG, "[epg] epg_bid: %s;", epg_bid.c_str());
         int dirtyID = Utils::GetIDDirty(epg_bid);
         kodi::Log(ADDON_LOG_DEBUG, "[epg] epg_bid dirty: %i;", dirtyID);
@@ -474,11 +478,11 @@ PVR_ERROR PlutotvData::GetEPGForChannel(int channelUid,
         kodi::Log(ADDON_LOG_DEBUG, "[epg] title: %s;", epgData["title"].GetString());
 
         // set startTime
-        string startTime = epgData["start"].GetString();
+        std::string startTime = epgData["start"].GetString();
         tag.SetStartTime(Utils::StringToTime(startTime));
 
         // set endTime
-        string endTime = epgData["stop"].GetString();
+        std::string endTime = epgData["stop"].GetString();
         tag.SetEndTime(Utils::StringToTime(endTime));
 
         if (epgData.HasMember("episode"))
