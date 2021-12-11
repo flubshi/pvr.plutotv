@@ -1,3 +1,6 @@
+v19.0.1
+- Speedup and fix EPG data caching
+
 v19.0.0
 - Initial Matrix version
 
