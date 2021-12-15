@@ -72,15 +72,7 @@ std::string PlutotvData::HttpRequestToCurl(Curl& curl,
 ADDON_STATUS PlutotvData::Create()
 {
   kodi::Log(ADDON_LOG_DEBUG, "%s - Creating the pluto.tv PVR add-on", __FUNCTION__);
-
-  m_curStatus = ADDON_STATUS_OK;
-  return m_curStatus;
-}
-
-ADDON_STATUS PlutotvData::GetStatus()
-{
-  kodi::Log(ADDON_LOG_DEBUG, "pluto.tv function call: [%s]", __FUNCTION__);
-  return m_curStatus;
+  return ADDON_STATUS_OK;
 }
 
 ADDON_STATUS PlutotvData::SetSetting(const std::string& settingName,
