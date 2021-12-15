@@ -73,7 +73,6 @@ ADDON_STATUS PlutotvData::Create()
 {
   kodi::Log(ADDON_LOG_DEBUG, "%s - Creating the pluto.tv PVR add-on", __FUNCTION__);
 
-  LoadChannelsData();
   m_curStatus = ADDON_STATUS_OK;
   return m_curStatus;
 }
