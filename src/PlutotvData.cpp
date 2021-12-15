@@ -101,12 +101,6 @@ PVR_ERROR PlutotvData::GetBackendVersion(std::string& version)
   return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR PlutotvData::GetConnectionString(std::string& connection)
-{
-  connection = "connected";
-  return PVR_ERROR_NO_ERROR;
-}
-
 void PlutotvData::SetStreamProperties(std::vector<kodi::addon::PVRStreamProperty>& properties,
                                       const std::string& url,
                                       bool realtime)
