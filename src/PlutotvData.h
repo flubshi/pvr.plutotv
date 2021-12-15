@@ -75,6 +75,7 @@ private:
   ADDON_STATUS m_curStatus = ADDON_STATUS_OK;
 
   std::vector<PlutotvChannel> m_channels;
+  bool m_bChannelsLoaded = false;
 
   void AddTimerType(std::vector<kodi::addon::PVRTimerType>& types, int idx, int attributes);
 
@@ -95,5 +96,5 @@ private:
                                 const std::string& url,
                                 const std::string& postData,
                                 int& statusCode);
-  bool LoadChannelData();
+  bool LoadChannelsData();
 };
