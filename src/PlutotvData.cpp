@@ -132,15 +132,15 @@ void PlutotvData::SetStreamProperties(std::vector<kodi::addon::PVRStreamProperty
   properties.emplace_back("inputstream.adaptive.manifest_update_parameter", "full");
 }
 
-bool PlutotvData::LoadChannelData(void)
+bool PlutotvData::LoadChannelData()
 {
-  kodi::Log(ADDON_LOG_DEBUG, "[load data] Login valid -> GET CHANNELS");
+  kodi::Log(ADDON_LOG_DEBUG, "[load data] GET CHANNELS");
 
   std::string jsonChannels = HttpGet("https://api.pluto.tv/v2/channels.json");
   if (jsonChannels.size() == 0)
   {
     kodi::Log(ADDON_LOG_ERROR, "[channels] ERROR - empty response");
-    return PVR_ERROR_SERVER_ERROR;
+    return false;
   }
   jsonChannels = "{\"result\": " + jsonChannels + "}";
   kodi::Log(ADDON_LOG_DEBUG, "[channels] length: %i;", jsonChannels.length());
@@ -155,7 +155,7 @@ bool PlutotvData::LoadChannelData(void)
   if (channelsDoc.GetParseError())
   {
     kodi::Log(ADDON_LOG_ERROR, "[LoadChannelData] ERROR: error while parsing json");
-    return PVR_ERROR_SERVER_ERROR;
+    return false;
   }
   kodi::Log(ADDON_LOG_DEBUG, "[channels] iterate channels");
   kodi::Log(ADDON_LOG_DEBUG, "[channels] size: %i;", channelsDoc["result"].Size());

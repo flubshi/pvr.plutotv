@@ -79,7 +79,6 @@ private:
   void AddTimerType(std::vector<kodi::addon::PVRTimerType>& types, int idx, int attributes);
 
   std::string GetChannelStreamUrl(int uniqueId);
-  std::string GetLicense(void);
   std::string GetSettingsUUID(std::string setting);
   void SetStreamProperties(std::vector<kodi::addon::PVRStreamProperty>& properties,
                            const std::string& url,
@@ -96,5 +95,5 @@ private:
                                 const std::string& url,
                                 const std::string& postData,
                                 int& statusCode);
-  bool LoadChannelData(void);
+  bool LoadChannelData();
 };
