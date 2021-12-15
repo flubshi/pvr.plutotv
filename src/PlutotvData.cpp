@@ -73,7 +73,7 @@ ADDON_STATUS PlutotvData::Create()
 {
   kodi::Log(ADDON_LOG_DEBUG, "%s - Creating the pluto.tv PVR add-on", __FUNCTION__);
 
-  LoadChannelData();
+  LoadChannelsData();
   m_curStatus = ADDON_STATUS_OK;
   return m_curStatus;
 }
@@ -132,8 +132,11 @@ void PlutotvData::SetStreamProperties(std::vector<kodi::addon::PVRStreamProperty
   properties.emplace_back("inputstream.adaptive.manifest_update_parameter", "full");
 }
 
-bool PlutotvData::LoadChannelData()
+bool PlutotvData::LoadChannelsData()
 {
+  if (m_bChannelsLoaded)
+    return true;
+
   kodi::Log(ADDON_LOG_DEBUG, "[load data] GET CHANNELS");
 
   std::string jsonChannels = HttpGet("https://api.pluto.tv/v2/channels.json");
@@ -241,12 +244,17 @@ bool PlutotvData::LoadChannelData()
     m_channels.push_back(plutotv_channel);
   }
 
+  m_bChannelsLoaded = true;
   return true;
 }
 
 PVR_ERROR PlutotvData::GetChannelsAmount(int& amount)
 {
   kodi::Log(ADDON_LOG_DEBUG, "pluto.tv function call: [%s]", __FUNCTION__);
+
+  LoadChannelsData();
+  if (!m_bChannelsLoaded)
+    return PVR_ERROR_SERVER_ERROR;
 
   amount = m_channels.size();
   return PVR_ERROR_NO_ERROR;
@@ -255,6 +263,10 @@ PVR_ERROR PlutotvData::GetChannelsAmount(int& amount)
 PVR_ERROR PlutotvData::GetChannels(bool radio, kodi::addon::PVRChannelsResultSet& results)
 {
   kodi::Log(ADDON_LOG_DEBUG, "pluto.tv function call: [%s]", __FUNCTION__);
+
+  LoadChannelsData();
+  if (!m_bChannelsLoaded)
+    return PVR_ERROR_SERVER_ERROR;
 
   for (const auto& channel : m_channels)
   {
@@ -303,6 +315,10 @@ std::string PlutotvData::GetSettingsUUID(std::string setting)
 
 std::string PlutotvData::GetChannelStreamUrl(int uniqueId)
 {
+  LoadChannelsData();
+  if (!m_bChannelsLoaded)
+    return {};
+
   for (const auto& thisChannel : m_channels)
   {
     if (thisChannel.iUniqueId == (int)uniqueId)
@@ -364,6 +380,10 @@ PVR_ERROR PlutotvData::GetEPGForChannel(int channelUid,
                                         time_t end,
                                         kodi::addon::PVREPGTagsResultSet& results)
 {
+  LoadChannelsData();
+  if (!m_bChannelsLoaded)
+    return PVR_ERROR_SERVER_ERROR;
+
   // Find channel data
   for (unsigned int iChannelPtr = 0; iChannelPtr < m_channels.size(); iChannelPtr++)
   {
