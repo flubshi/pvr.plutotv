@@ -10,6 +10,7 @@
 #include "Curl.h"
 
 #include "Utils.h"
+#include "kodi/tools/StringUtils.h"
 
 #include <utility>
 
@@ -84,7 +85,7 @@ void Curl::ParseCookies(kodi::vfs::CFile* file, const std::string& host)
     std::string::size_type paramPos = cookie.find(';');
     if (paramPos != std::string::npos)
       cookie.resize(paramPos);
-    std::vector<std::string> parts = Utils::SplitString(cookie, '=', 2);
+    std::vector<std::string> parts = kodi::tools::StringUtils::Split(cookie, "=", 2);
     if (parts.size() != 2)
     {
       continue;
@@ -187,10 +188,11 @@ std::string Curl::Request(const std::string& action,
 
     // get the real statusCode
     std::string tmpRespLine = file->GetPropertyValue(ADDON_FILE_PROPERTY_RESPONSE_PROTOCOL, "");
-    std::vector<std::string> resp_protocol_parts = Utils::SplitString(tmpRespLine, ' ', 3);
+    std::vector<std::string> resp_protocol_parts =
+        kodi::tools::StringUtils::Split(tmpRespLine, " ", 3);
     if (resp_protocol_parts.size() >= 2)
     {
-      statusCode = Utils::stoiDefault(resp_protocol_parts[1].c_str(), -1);
+      statusCode = Utils::StringToInt(resp_protocol_parts[1], -1);
       kodi::Log(ADDON_LOG_DEBUG, "HTTP response code: %i.", statusCode);
     }
 

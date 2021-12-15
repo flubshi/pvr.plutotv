@@ -10,6 +10,7 @@
 
 #include "Utils.h"
 #include "kodi/General.h"
+#include "kodi/tools/StringUtils.h"
 #include "rapidjson/document.h"
 
 #include <algorithm>
@@ -207,7 +208,7 @@ bool PlutotvData::LoadChannelData(void)
     plutotv_channel.plutotvID = plutotvid;
     kodi::Log(ADDON_LOG_DEBUG, "[channel] pluto.tv ID: %s;", plutotv_channel.plutotvID.c_str());
 
-    int uniqueId = Utils::GetChannelId(plutotvid.c_str());
+    int uniqueId = Utils::Hash(plutotvid);
     plutotv_channel.iUniqueId = uniqueId;
     kodi::Log(ADDON_LOG_DEBUG, "[channel] id: %i;", uniqueId);
 
@@ -293,7 +294,7 @@ std::string PlutotvData::GetSettingsUUID(std::string setting)
   std::string uuid = kodi::GetSettingString(setting);
   if (uuid.empty())
   {
-    uuid = Utils::get_uuid();
+    uuid = Utils::CreateUUID();
     kodi::Log(ADDON_LOG_DEBUG, "uuid (generated): %s", uuid.c_str());
     kodi::SetSettingString(setting, uuid);
   }
@@ -312,10 +313,10 @@ std::string PlutotvData::GetChannelStreamUrl(int uniqueId)
       kodi::Log(ADDON_LOG_DEBUG, "URL source: %s", streamURL.c_str());
 
 
-      if (Utils::ends_with(streamURL, "?deviceType="))
+      if (kodi::tools::StringUtils::EndsWith(streamURL, "?deviceType="))
       {
         // lazy approach by plugin.video.plutotv
-        streamURL = Utils::ReplaceAll(
+        kodi::tools::StringUtils::Replace(
             streamURL, "deviceType=",
             "deviceType=&deviceMake=&deviceModel=&&deviceVersion=unknown&appVersion=unknown&"
             "deviceDNT=0&userId=&advertisingId=&app_name=&appName=&buildVersion=&appStoreUrl=&"
@@ -323,17 +324,17 @@ std::string PlutotvData::GetChannelStreamUrl(int uniqueId)
       }
 
       //if 'sid' not in streamURL
-      //streamURL = Utils::ReplaceAll(streamURL,"deviceModel=&","deviceModel=&sid="+PLUTOTV_SID+"&deviceId="+PLUTOTV_DEVICEID+"&");
-      streamURL = Utils::ReplaceAll(streamURL, "deviceId=&",
-                                    "deviceId=" + GetSettingsUUID("internal_deviceid") + "&");
-      streamURL =
-          Utils::ReplaceAll(streamURL, "sid=&", "sid=" + GetSettingsUUID("internal_sid") + "&");
+      //kodi::tools::StringUtils::Replace(streamURL,"deviceModel=&","deviceModel=&sid="+PLUTOTV_SID+"&deviceId="+PLUTOTV_DEVICEID+"&");
+      kodi::tools::StringUtils::Replace(streamURL, "deviceId=&",
+                                        "deviceId=" + GetSettingsUUID("internal_deviceid") + "&");
+      kodi::tools::StringUtils::Replace(streamURL, "sid=&",
+                                        "sid=" + GetSettingsUUID("internal_sid") + "&");
 
       // generic
-      streamURL = Utils::ReplaceAll(streamURL, "deviceType=&", "deviceType=web&");
-      streamURL = Utils::ReplaceAll(streamURL, "deviceMake=&", "deviceMake=Chrome&");
-      streamURL = Utils::ReplaceAll(streamURL, "deviceModel=&", "deviceModel=Chrome&");
-      streamURL = Utils::ReplaceAll(streamURL, "appName=&", "appName=web&");
+      kodi::tools::StringUtils::Replace(streamURL, "deviceType=&", "deviceType=web&");
+      kodi::tools::StringUtils::Replace(streamURL, "deviceMake=&", "deviceMake=Chrome&");
+      kodi::tools::StringUtils::Replace(streamURL, "deviceModel=&", "deviceModel=Chrome&");
+      kodi::tools::StringUtils::Replace(streamURL, "appName=&", "appName=web&");
 
       return streamURL;
     }
@@ -467,11 +468,11 @@ PVR_ERROR PlutotvData::GetEPGForChannel(int channelUid,
         //                } }  }   },
 
         // generate a unique boadcast id
-        std::string epg_bid = epgData["_id"].GetString();
-        kodi::Log(ADDON_LOG_DEBUG, "[epg] epg_bid: %s;", epg_bid.c_str());
-        int dirtyID = Utils::GetIDDirty(epg_bid);
-        kodi::Log(ADDON_LOG_DEBUG, "[epg] epg_bid dirty: %i;", dirtyID);
-        tag.SetUniqueBroadcastId(dirtyID);
+        std::string epg_bsid = epgData["_id"].GetString();
+        kodi::Log(ADDON_LOG_DEBUG, "[epg] epg_bsid: %s;", epg_bsid.c_str());
+        int epg_bid = Utils::Hash(epg_bsid);
+        kodi::Log(ADDON_LOG_DEBUG, "[epg] epg_bid: %i;", epg_bid);
+        tag.SetUniqueBroadcastId(epg_bid);
 
         // channel ID
         tag.SetUniqueChannelId(myChannel.iUniqueId);
