@@ -8,10 +8,10 @@
 
 #pragma once
 
-#include "Curl.h"
 #include "kodi/addon-instance/PVR.h"
 #include "rapidjson/document.h"
 
+#include <memory>
 #include <vector>
 
 /**
@@ -65,31 +65,17 @@ private:
     std::string strStreamURL;
   };
 
-  rapidjson::Document m_epg_cache_document;
+  std::shared_ptr<rapidjson::Document> m_epg_cache_document;
   time_t m_epg_cache_start = time_t(0);
   time_t m_epg_cache_end = time_t(0);;
 
   std::vector<PlutotvChannel> m_channels;
   bool m_bChannelsLoaded = false;
 
-  void AddTimerType(std::vector<kodi::addon::PVRTimerType>& types, int idx, int attributes);
-
-  std::string GetChannelStreamUrl(int uniqueId);
-  std::string GetSettingsUUID(std::string setting);
+  std::string GetChannelStreamURL(int uniqueId);
+  std::string GetSettingsUUID(const std::string& setting);
   void SetStreamProperties(std::vector<kodi::addon::PVRStreamProperty>& properties,
                            const std::string& url,
                            bool realtime);
-
-  std::string HttpGet(const std::string& url);
-  std::string HttpDelete(const std::string& url, const std::string& postData);
-  std::string HttpPost(const std::string& url, const std::string& postData);
-  std::string HttpRequest(const std::string& action,
-                          const std::string& url,
-                          const std::string& postData);
-  std::string HttpRequestToCurl(Curl& curl,
-                                const std::string& action,
-                                const std::string& url,
-                                const std::string& postData,
-                                int& statusCode);
   bool LoadChannelsData();
 };
