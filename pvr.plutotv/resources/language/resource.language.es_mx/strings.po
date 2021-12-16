@@ -4,40 +4,45 @@
 # Addon Provider: Team Kodi
 msgid ""
 msgstr ""
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
+"PO-Revision-Date: 2021-12-15 05:13+0000\n"
+"Last-Translator: Edson Armando <edsonarmando78@outlook.com>\n"
+"Language-Team: Spanish (Mexico) <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-plutotv/es_mx/>\n"
 "Language: es_mx\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9.1\n"
 
 msgctxt "Addon Summary"
 msgid "Pluto.tv PVR Client"
-msgstr ""
+msgstr "Cliente PVR de Pluto.tv"
 
 msgctxt "Addon Description"
 msgid "Pluto.tv PVR Client. Note: This is not an official pluto.tv add-on and not related to pluto.tv. It was developed by volunteers."
-msgstr ""
+msgstr "Cliente PVR de Pluto.tv. Nota: Este no es un complemento oficial de plut.tv y no está relacionado a pluto.tv. Ha sido desarrollado por voluntarios."
 
 msgctxt "#30001"
 msgid "General"
-msgstr ""
+msgstr "General"
 
 msgctxt "#30006"
 msgid "InputStream Helper information"
-msgstr ""
+msgstr "Información de InputStream Helper"
 
 msgctxt "#30007"
 msgid "(Re)install Widevine CDM library"
-msgstr ""
+msgstr "(Re)instalar la librería Widevine CDM"
 
 msgctxt "#30040"
 msgid "Debug"
-msgstr ""
+msgstr "Depuración"
 
 msgctxt "#30041"
 msgid "SID"
-msgstr ""
+msgstr "SID"
 
 msgctxt "#30042"
 msgid "Device ID"
-msgstr ""
+msgstr "ID de dispositivo"
