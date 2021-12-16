@@ -25,10 +25,12 @@
     <summary lang="da_DK">Pluto.tv PVR-klient</summary>
     <summary lang="de_DE">Pluto.tv PVR Client</summary>
     <summary lang="en_GB">Pluto.tv PVR Client</summary>
+    <summary lang="es_MX">Cliente PVR de Pluto.tv</summary>
     <summary lang="ko_KR">Pluto.tv PVR 클라이언트</summary>
     <description lang="da_DK">Pluto.tv PVR-klient. Bemærk: Dette er ikke et officielt pluto.tv-add-on og er ikke relateret til pluto.tv. Det er udviklet af frivillige.</description>
     <description lang="de_DE">Pluto.tv PVR Client. Hinweis: Dies ist kein offizielles Pluto.tv-Addon und steht nicht in Verbindung zu Pluto.tv. Es wurde von Freiwilligen entwickelt.</description>
     <description lang="en_GB">Pluto.tv PVR Client. Note: This is not an official pluto.tv add-on and not related to pluto.tv. It was developed by volunteers.</description>
+    <description lang="es_MX">Cliente PVR de Pluto.tv. Nota: Este no es un complemento oficial de plut.tv y no está relacionado a pluto.tv. Ha sido desarrollado por voluntarios.</description>
     <description lang="ko_KR">Pluto.tv PVR 클라이언트. 참고 : 이것은 공식 pluto.tv 애드온이 아니며 pluto.tv와 관련이 없습니다. 자원 봉사자가 개발했습니다.</description>
   </extension>
 </addon>
