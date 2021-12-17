@@ -24,7 +24,13 @@ std::string HttpGet(const std::string& url)
   curl.AddHeader("User-Agent", PLUTOTV_USER_AGENT);
 
   int statusCode;
-  return curl.Get(url, statusCode);
+  std::string content = curl.Get(url, statusCode);
+  if (statusCode == 200)
+    return content;
+
+  kodi::Log(ADDON_LOG_ERROR, "[Http-GET-Request] error. status: %i, body: %s", statusCode,
+            content.c_str());
+  return "";
 }
 } // namespace
 
@@ -346,12 +352,12 @@ PVR_ERROR PlutotvData::GetEPGForChannel(int channelUid,
       const std::tm* pstm = std::localtime(&start);
       // 2020-05-27T15:04:05Z
       char startTime[21] = "";
-      std::strftime(startTime, 20, "%Y-%m-%dT%H:%M:%SZ", pstm);
+      std::strftime(startTime, sizeof(startTime), "%Y-%m-%dT%H:%M:%SZ", pstm);
 
       const std::tm* petm = std::localtime(&end);
       // 2020-05-27T15:04:05Z
       char endTime[21] = "";
-      std::strftime(endTime, 20, "%Y-%m-%dT%H:%M:%SZ", petm);
+      std::strftime(endTime, sizeof(endTime), "%Y-%m-%dT%H:%M:%SZ", petm);
 
       const std::string url = "http://api.pluto.tv/v2/channels?start=" + std::string(startTime) +
                               "&stop=" + std::string(endTime);
