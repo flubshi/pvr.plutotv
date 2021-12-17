@@ -62,8 +62,9 @@ int Utils::Hash(const std::string& str)
 
   int hash = 0;
   while (*s)
-    hash = hash << 1 ^ *s++;
-  return hash;
+    hash = ((hash << 5) + hash) + *s++; // hash * 33 + c
+
+  return std::abs(hash);
 }
 
 std::string Utils::CreateUUID()
