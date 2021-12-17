@@ -10,6 +10,14 @@ msgstr ""
 "Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgctxt "Addon Summary"
+msgid "Pluto.tv PVR Client"
+msgstr ""
+
+msgctxt "Addon Description"
+msgid "Pluto.tv PVR Client. Note: This is not an official pluto.tv add-on and not related to pluto.tv. It was developed by volunteers."
+msgstr ""
+
 msgctxt "#30001"
 msgid "General"
 msgstr ""
