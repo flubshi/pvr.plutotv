@@ -8,10 +8,10 @@
 
 #pragma once
 
-#include "Curl.h"
 #include "kodi/addon-instance/PVR.h"
 #include "rapidjson/document.h"
 
+#include <memory>
 #include <vector>
 
 /**
@@ -31,14 +31,12 @@ public:
   PlutotvData& operator=(PlutotvData&&) = delete;
 
   ADDON_STATUS Create() override;
-  ADDON_STATUS GetStatus() override;
   ADDON_STATUS SetSetting(const std::string& settingName,
                           const kodi::CSettingValue& settingValue) override;
 
   PVR_ERROR GetCapabilities(kodi::addon::PVRCapabilities& capabilities) override;
   PVR_ERROR GetBackendName(std::string& name) override;
   PVR_ERROR GetBackendVersion(std::string& version) override;
-  PVR_ERROR GetConnectionString(std::string& connection) override;
 
   PVR_ERROR GetChannelsAmount(int& amount) override;
   PVR_ERROR GetChannels(bool radio, kodi::addon::PVRChannelsResultSet& results) override;
@@ -56,7 +54,6 @@ public:
                              time_t end,
                              kodi::addon::PVREPGTagsResultSet& results) override;
 
-
 private:
   struct PlutotvChannel
   {
@@ -68,33 +65,17 @@ private:
     std::string strStreamURL;
   };
 
-  rapidjson::Document m_epg_cache_document;
+  std::shared_ptr<rapidjson::Document> m_epg_cache_document;
   time_t m_epg_cache_start = time_t(0);
   time_t m_epg_cache_end = time_t(0);;
 
-  ADDON_STATUS m_curStatus = ADDON_STATUS_OK;
-
   std::vector<PlutotvChannel> m_channels;
+  bool m_bChannelsLoaded = false;
 
-  void AddTimerType(std::vector<kodi::addon::PVRTimerType>& types, int idx, int attributes);
-
-  std::string GetChannelStreamUrl(int uniqueId);
-  std::string GetLicense(void);
-  std::string GetSettingsUUID(std::string setting);
+  std::string GetChannelStreamURL(int uniqueId);
+  std::string GetSettingsUUID(const std::string& setting);
   void SetStreamProperties(std::vector<kodi::addon::PVRStreamProperty>& properties,
                            const std::string& url,
                            bool realtime);
-
-  std::string HttpGet(const std::string& url);
-  std::string HttpDelete(const std::string& url, const std::string& postData);
-  std::string HttpPost(const std::string& url, const std::string& postData);
-  std::string HttpRequest(const std::string& action,
-                          const std::string& url,
-                          const std::string& postData);
-  std::string HttpRequestToCurl(Curl& curl,
-                                const std::string& action,
-                                const std::string& url,
-                                const std::string& postData,
-                                int& statusCode);
-  bool LoadChannelData(void);
+  bool LoadChannelsData();
 };

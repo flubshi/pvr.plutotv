@@ -1,3 +1,10 @@
+v20.0.2
+- Fix memory leak when redirecting HTTP requests
+- Load channel data on demand, not on add-on startup
+- Do not report API call success when channels can't be loaded
+- Fix crash on HTTP request error
+- Code cleanup
+
 v20.0.1
 - Speedup and fix EPG data caching
 
