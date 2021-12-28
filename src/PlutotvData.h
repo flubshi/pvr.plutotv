@@ -20,8 +20,8 @@
 static const std::string PLUTOTV_USER_AGENT =
     "Mozilla/5.0 (Windows NT 6.2; rv:24.0) Gecko/20100101 Firefox/24.0";
 
-class ATTRIBUTE_HIDDEN PlutotvData : public kodi::addon::CAddonBase,
-                                     public kodi::addon::CInstancePVRClient
+class ATTR_DLL_LOCAL PlutotvData : public kodi::addon::CAddonBase,
+                                   public kodi::addon::CInstancePVRClient
 {
 public:
   PlutotvData() = default;
@@ -32,7 +32,7 @@ public:
 
   ADDON_STATUS Create() override;
   ADDON_STATUS SetSetting(const std::string& settingName,
-                          const kodi::CSettingValue& settingValue) override;
+                          const kodi::addon::CSettingValue& settingValue) override;
 
   PVR_ERROR GetCapabilities(kodi::addon::PVRCapabilities& capabilities) override;
   PVR_ERROR GetBackendName(std::string& name) override;

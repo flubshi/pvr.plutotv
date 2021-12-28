@@ -41,7 +41,7 @@ ADDON_STATUS PlutotvData::Create()
 }
 
 ADDON_STATUS PlutotvData::SetSetting(const std::string& settingName,
-                                     const kodi::CSettingValue& settingValue)
+                                     const kodi::addon::CSettingValue& settingValue)
 {
   return ADDON_STATUS_OK;
 }
@@ -252,12 +252,12 @@ PVR_ERROR PlutotvData::GetChannelStreamProperties(
 
 std::string PlutotvData::GetSettingsUUID(const std::string& setting)
 {
-  std::string uuid = kodi::GetSettingString(setting);
+  std::string uuid = kodi::addon::GetSettingString(setting);
   if (uuid.empty())
   {
     uuid = Utils::CreateUUID();
     kodi::Log(ADDON_LOG_DEBUG, "uuid (generated): %s", uuid.c_str());
-    kodi::SetSettingString(setting, uuid);
+    kodi::addon::SetSettingString(setting, uuid);
   }
   return uuid;
 }
