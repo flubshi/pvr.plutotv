@@ -1,0 +1,48 @@
+# Kodi Media Center language file
+# Addon Name: PVR pluto.tv Client
+# Addon id: pvr.plutotv
+# Addon Provider: Team Kodi
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
+"PO-Revision-Date: 2021-11-30 08:45+0000\n"
+"Last-Translator: Christian Gade <gade@kodi.tv>\n"
+"Language-Team: Danish <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-plutotv/da_dk/>\n"
+"Language: da_dk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9.1\n"
+
+msgctxt "Addon Summary"
+msgid "Pluto.tv PVR Client"
+msgstr "Pluto.tv PVR-klient"
+
+msgctxt "Addon Description"
+msgid "Pluto.tv PVR Client. Note: This is not an official pluto.tv add-on and not related to pluto.tv. It was developed by volunteers."
+msgstr "Pluto.tv PVR-klient. Bemærk: Dette er ikke et officielt pluto.tv-add-on og er ikke relateret til pluto.tv. Det er udviklet af frivillige."
+
+msgctxt "#30001"
+msgid "General"
+msgstr "Generel"
+
+msgctxt "#30006"
+msgid "InputStream Helper information"
+msgstr "Hjælpeoplysninger om InputStream"
+
+msgctxt "#30007"
+msgid "(Re)install Widevine CDM library"
+msgstr "(Gen)installer Widevine CDM bibliotek"
+
+msgctxt "#30040"
+msgid "Debug"
+msgstr "Fejlfinding"
+
+msgctxt "#30041"
+msgid "SID"
+msgstr "SID"
+
+msgctxt "#30042"
+msgid "Device ID"
+msgstr "Enheds-ID"

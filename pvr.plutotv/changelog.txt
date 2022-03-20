@@ -1,0 +1,27 @@
+v19.0.3
+- Fix creation of broadcast and channel uid
+
+v19.0.2
+- Fix memory leak when redirecting HTTP requests
+- Load channel data on demand, not on add-on startup
+- Do not report API call success when channels can't be loaded
+- Fix crash on HTTP request error
+- Code cleanup
+
+v19.0.1
+- Speedup and fix EPG data caching
+
+v19.0.0
+- Initial Matrix version
+
+v0.0.4
+- Fix no EPG data if Kodi setting 'past days to display' is greater than zero
+
+v0.0.3
+- Cleanup and prepare to move to kodi-pvr
+
+v0.0.2
+- Dynamic UUID for Device ID and SID
+
+v0.0.1
+- Initial alpha version

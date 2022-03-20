@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.plutotv"
-  version="0.0.2"
+  version="19.0.3"
   name="Pluto.tv PVR Client"
-  provider-name="flubshi">
+  provider-name="Team Kodi, flubshi">
   <requires>@ADDON_DEPENDS@
     <import addon="script.module.inputstreamhelper" version="0.4.1"/>
-    <import addon="inputstream.adaptive" minversion="2.4.2"/>
+    <import addon="inputstream.adaptive" minversion="2.6.6"/>
   </requires>
   <extension
     point="kodi.pvrclient"
     library_@PLATFORM@="@LIBRARY_FILENAME@"/>
   <extension point="xbmc.addon.metadata">
-    <summary lang="de_DE">Pluto.tv PVR Client</summary>
-    <summary lang="en_US">Pluto.tv PVR Client</summary>
-    <description lang="de_DE">Pluto.tv PVR Client. Hinweis: Dies ist kein offizielles Pluto.tv-Plugin und steht nicht in Verbindung zu Pluto.tv. Es wurde von Freiwilligen entwickelt.</description>
-    <description lang="en_US">Pluto.tv PVR Client. Note: This is not an official pluto.tv plugin and not related to pluto.tv. It was developed by volunteers.</description>
     <platform>@PLATFORM@</platform>
-      <license>GNU General Public License. Version 2, June 1991</license>
-  <forum></forum>
-  <website>https://pluto.tv/</website>
-  <email></email>
-  <source>https://github.com/flubshi/pvr.plutotv</source>
-  <assets>
-    <icon>icon.png</icon>
-    <screenshot>resources/screenshots/screenshot-01.jpg</screenshot>
-    <screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
-    <screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
-  </assets>
-  <news>
-- 0.0.2 Dynamic UUID for Device ID and SID
-- 0.0.1 Initial alpha version
-  </news>
+    <license>GPL-2.0-or-later</license>
+    <source>https://github.com/kodi-pvr/pvr.plutotv</source>
+    <forum>https://forum.kodi.tv/forumdisplay.php?fid=167</forum>
+    <assets>
+      <icon>icon.png</icon>
+      <screenshot>resources/screenshots/screenshot-01.jpg</screenshot>
+      <screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
+      <screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
+    </assets>
+    <summary lang="da_DK">Pluto.tv PVR-klient</summary>
+    <summary lang="de_DE">Pluto.tv PVR Client</summary>
+    <summary lang="en_GB">Pluto.tv PVR Client</summary>
+    <summary lang="es_MX">Cliente PVR de Pluto.tv</summary>
+    <summary lang="ko_KR">Pluto.tv PVR 클라이언트</summary>
+    <description lang="da_DK">Pluto.tv PVR-klient. Bemærk: Dette er ikke et officielt pluto.tv-add-on og er ikke relateret til pluto.tv. Det er udviklet af frivillige.</description>
+    <description lang="de_DE">Pluto.tv PVR Client. Hinweis: Dies ist kein offizielles Pluto.tv-Addon und steht nicht in Verbindung zu Pluto.tv. Es wurde von Freiwilligen entwickelt.</description>
+    <description lang="en_GB">Pluto.tv PVR Client. Note: This is not an official pluto.tv add-on and not related to pluto.tv. It was developed by volunteers.</description>
+    <description lang="es_MX">Cliente PVR de Pluto.tv. Nota: Este no es un complemento oficial de plut.tv y no está relacionado a pluto.tv. Ha sido desarrollado por voluntarios.</description>
+    <description lang="ko_KR">Pluto.tv PVR 클라이언트. 참고 : 이것은 공식 pluto.tv 애드온이 아니며 pluto.tv와 관련이 없습니다. 자원 봉사자가 개발했습니다.</description>
   </extension>
 </addon>

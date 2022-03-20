@@ -48,7 +48,3 @@ obj-x86_64-linux-gnu/
 .DS_Store
 .AppleDouble
 .LSOverride
-
-# Misc
-compile_plutotv.sh
-

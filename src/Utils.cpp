@@ -1,119 +1,32 @@
 /*
- * taken from pvr:zattoo
+ *  Copyright (C) 2021 Team Kodi (https://kodi.tv)
+ *
+ *  SPDX-License-Identifier: GPL-2.0-or-later
+ *  See LICENSE.md for more information.
+ *
+ *  Originally taken from pvr.zattoo (https://github.com/rbuehlma/pvr.zattoo)
  */
 
 #include "Utils.h"
 
-#include "kodi/Filesystem.h"
-#include "kodi/General.h"
-#include "p8-platform/os.h"
-
-#include <algorithm>
-#include <iomanip>
-#include <iostream>
-#include <iterator>
+#include <cstdio>
+#include <ctime>
+#include <exception>
 #include <random>
-#include <sstream>
+#include <string>
 
-std::string Utils::GetFilePath(std::string strPath, bool bUserPath)
-{
-  return (bUserPath ? kodi::GetBaseUserPath(strPath) : kodi::GetAddonPath(strPath));
-}
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+#define timegm _mkgmtime
+#endif
 
-// http://stackoverflow.com/a/17708801
-std::string Utils::UrlEncode(const std::string& value)
-{
-  std::ostringstream escaped;
-  escaped.fill('0');
-  escaped << std::hex;
-
-  for (char c : value)
-  {
-    // Keep alphanumeric and other accepted characters intact
-    if (isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~')
-    {
-      escaped << c;
-      continue;
-    }
-
-    // Any other characters are percent-encoded
-    escaped << '%' << std::setw(2) << int((unsigned char)c);
-  }
-
-  return escaped.str();
-}
-
-double Utils::StringToDouble(const std::string& value)
-{
-  std::istringstream iss(value);
-  double result;
-
-  iss >> result;
-
-  return result;
-}
-
-int Utils::StringToInt(const std::string& value)
-{
-  return (int)StringToDouble(value);
-}
-
-std::vector<std::string> Utils::SplitString(const std::string& str, const char& delim, int maxParts)
-{
-  typedef std::string::const_iterator iter;
-  iter beg = str.begin();
-  std::vector<std::string> tokens;
-
-  while (beg != str.end())
-  {
-    if (maxParts == 1)
-    {
-      tokens.emplace_back(beg, str.end());
-      break;
-    }
-    maxParts--;
-    iter temp = find(beg, str.end(), delim);
-    if (beg != str.end())
-      tokens.emplace_back(beg, temp);
-    beg = temp;
-    while ((beg != str.end()) && (*beg == delim))
-      beg++;
-  }
-
-  return tokens;
-}
-
-std::string Utils::ReadFile(const std::string& path)
-{
-  kodi::vfs::CFile file;
-  file.CURLCreate(path);
-  if (!file.CURLCreate(path) || !file.CURLOpen(0))
-  {
-    kodi::Log(ADDON_LOG_ERROR, "Failed to open file [%s].", path.c_str());
-    return "";
-  }
-
-  char buf[1025];
-  ssize_t nbRead;
-  std::string content;
-  while ((nbRead = file.Read(buf, 1024)) > 0)
-  {
-    buf[nbRead] = 0;
-    content.append(buf);
-  }
-
-  return content;
-}
-
-time_t Utils::StringToTime(std::string timeString)
+time_t Utils::StringToTime(const std::string& timeString)
 {
   // expected timeString "2019-01-20T15:40:00+0100"
-  struct tm tm
-  {
-  };
+  struct tm tm = {};
 
   int year, month, day, h, m, s, tzh, tzm;
-  if (sscanf(timeString.c_str(), "%d-%d-%dT%d:%d:%d%d", &year, &month, &day, &h, &m, &s, &tzh) < 7)
+  if (std::sscanf(timeString.c_str(), "%d-%d-%dT%d:%d:%d%d", &year, &month, &day, &h, &m, &s,
+                  &tzh) < 7)
   {
     tzh = 0;
   }
@@ -131,88 +44,47 @@ time_t Utils::StringToTime(std::string timeString)
   return ret;
 }
 
-std::string Utils::ltrim(std::string str, const std::string chars)
-{
-  str.erase(0, str.find_first_not_of(chars));
-  return str;
-}
-
-int Utils::GetIDDirty(std::string str)
-{
-  // str= "_1035245078" or = "misc-rand-int-whatever"
-  if (str.rfind("_", 0) == 0)
-  {
-    // str starts with _
-    return stoi(ltrim(str));
-  }
-  // dirty shit begins here:
-  return rand() % 99999 + 1;
-}
-
-int Utils::GetChannelId(const char* strChannelName)
-{
-  int iId = 0;
-  int c;
-  while ((c = *strChannelName++))
-    iId = ((iId << 5) + iId) + c; /* iId * 33 + c */
-  return abs(iId);
-}
-
-int Utils::stoiDefault(std::string str, int i)
+int Utils::StringToInt(const std::string& str, int defaultValue)
 {
   try
   {
-    return stoi(str);
+    return std::stoi(str);
   }
   catch (std::exception& e)
   {
-    return i;
+    return defaultValue;
   }
 }
 
-bool Utils::ends_with(std::string const& haystack, std::string const& end)
+int Utils::Hash(const std::string& str)
 {
-  if (haystack.length() >= end.length())
-  {
-    return (0 == haystack.compare(haystack.length() - end.length(), end.length(), end));
-  }
-  else
-  {
-    return false;
-  }
+  const char* s = str.c_str();
+
+  int hash = 0;
+  while (*s)
+    hash = ((hash << 5) + hash) + *s++; // hash * 33 + c
+
+  return std::abs(hash);
 }
 
-
-std::string Utils::ReplaceAll(std::string str,
-                              const std::string& search,
-                              const std::string& replace)
+std::string Utils::CreateUUID()
 {
-  // taken from: https://stackoverflow.com/questions/2896600/how-to-replace-all-occurrences-of-a-character-in-string
-  size_t start_pos = 0;
-  while ((start_pos = str.find(search, start_pos)) != std::string::npos)
-  {
-    str.replace(start_pos, search.length(), replace);
-    start_pos += replace.length();
-  }
-  return str;
-}
-
-
-std::string Utils::get_uuid() {
   // https://stackoverflow.com/questions/24365331/how-can-i-generate-uuid-in-c-without-using-boost-library
-    static std::random_device dev;
-    static std::mt19937 rng(dev());
+  static std::random_device dev;
+  static std::mt19937 rng(dev());
 
-    std::uniform_int_distribution<int> dist(0, 15);
+  std::uniform_int_distribution<int> dist(0, 15);
 
-    const char *v = "0123456789abcdef";
-    const bool dash[] = { 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0 };
+  const char* v = "0123456789abcdef";
+  const bool dash[] = {0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0};
 
-    std::string res;
-    for (int i = 0; i < 16; i++) {
-        if (dash[i]) res += "-";
-        res += v[dist(rng)];
-        res += v[dist(rng)];
-    }
-    return res;
+  std::string res;
+  for (int i = 0; i < 16; i++)
+  {
+    if (dash[i])
+      res += "-";
+    res += v[dist(rng)];
+    res += v[dist(rng)];
+  }
+  return res;
 }

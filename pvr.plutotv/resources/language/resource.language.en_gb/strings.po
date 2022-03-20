@@ -1,7 +1,7 @@
 # Kodi Media Center language file
 # Addon Name: PVR pluto.tv Client
 # Addon id: pvr.plutotv
-# Addon Provider: flubshi
+# Addon Provider: Team Kodi
 msgid ""
 msgstr ""
 "MIME-Version: 1.0\n"
@@ -9,6 +9,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "Addon Summary"
+msgid "Pluto.tv PVR Client"
+msgstr ""
+
+msgctxt "Addon Description"
+msgid "Pluto.tv PVR Client. Note: This is not an official pluto.tv add-on and not related to pluto.tv. It was developed by volunteers."
+msgstr ""
 
 msgctxt "#30001"
 msgid "General"
@@ -19,7 +27,7 @@ msgid "InputStream Helper information"
 msgstr ""
 
 msgctxt "#30007"
-msgid "(Re)install Widevine CDM library..."
+msgid "(Re)install Widevine CDM library"
 msgstr ""
 
 msgctxt "#30040"
@@ -32,4 +40,4 @@ msgstr ""
 
 msgctxt "#30042"
 msgid "Device ID"
-msgstr "Device ID"
+msgstr ""
