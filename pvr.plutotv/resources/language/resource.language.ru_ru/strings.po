@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
-"PO-Revision-Date: 2024-05-05 07:45+0000\n"
+"PO-Revision-Date: 2025-01-17 22:46+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-plutotv/ru_ru/>\n"
 "Language: ru_ru\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.5.3\n"
+"X-Generator: Weblate 5.9.2\n"
 
 msgctxt "Addon Summary"
 msgid "Pluto.tv PVR Client"
@@ -25,11 +25,11 @@ msgstr "PVR-клиент Pluto.tv. Примечание: Это не офици�
 
 msgctxt "#30001"
 msgid "Playback"
-msgstr ""
+msgstr "Воспроизведение"
 
 msgctxt "#30002"
 msgid "Channels"
-msgstr ""
+msgstr "Каналы"
 
 msgctxt "#30008"
 msgid "First channel number"
@@ -41,7 +41,7 @@ msgstr "Обходное решение для сломанных потоков
 
 msgctxt "#30010"
 msgid "Coloured channel logos"
-msgstr ""
+msgstr "Цветные логотипы каналов"
 
 msgctxt "#30040"
 msgid "Debug"
@@ -57,27 +57,27 @@ msgstr "ID устройства"
 
 msgctxt "#30100"
 msgid "Category containing playback settings"
-msgstr ""
+msgstr "Категория с настройками воспроизведения"
 
 msgctxt "#30101"
 msgid "Enable special stream handling to avoid hangs during playback."
-msgstr ""
+msgstr "Включите специальную обработку потоков, чтобы избежать зависаний при воспроизведении."
 
 msgctxt "#30200"
 msgid "Category containing channel settings"
-msgstr ""
+msgstr "Категория с настройками канала"
 
 msgctxt "#30201"
 msgid "The number for the first channel. Useful if you have multiple PVR clients enabled - to group the channels from the different clients."
-msgstr ""
+msgstr "Номер первого канала. Полезно, когда включено несколько PVR-клиентов - для группировки каналов от разных клиентов."
 
 msgctxt "#30202"
 msgid "Use coulored channel logos, if available."
-msgstr ""
+msgstr "Использовать цветные логотипы каналов, если возможно."
 
 msgctxt "#30300"
 msgid "Category containing debug settings"
-msgstr ""
+msgstr "Категория с настройками отладки"
 
 #~ msgctxt "#30001"
 #~ msgid "General"
