@@ -1,3 +1,8 @@
+> [!CAUTION]
+> The main repository for pvr.plutotv has moved to [github.com/kodi-pvr/pvr.plutotv](https://github.com/kodi-pvr/pvr.plutotv).
+> 
+> Please create Pull Requests there, not here.
+
 # Pluto.tv PVR client for Kodi
 
 This is the Pluto.tv PVR client addon for [Kodi](https://kodi.tv). It provides Kodi integration for the TV streaming provider pluto.tv
