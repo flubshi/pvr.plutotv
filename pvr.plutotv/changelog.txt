@@ -1,3 +1,6 @@
+v19.0.4
+- TM free logo
+
 v19.0.3
 - Fix creation of broadcast and channel uid
 

@@ -4,11 +4,16 @@
 # Addon Provider: Team Kodi
 msgid ""
 msgstr ""
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
+"PO-Revision-Date: 2022-03-06 18:03+0000\n"
+"Last-Translator: Christian Gade <gade@kodi.tv>\n"
+"Language-Team: Afrikaans (South Africa) <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-plutotv/af_za/>\n"
 "Language: af_za\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.11.2\n"
 
 msgctxt "Addon Summary"
 msgid "Pluto.tv PVR Client"
@@ -20,7 +25,7 @@ msgstr ""
 
 msgctxt "#30001"
 msgid "General"
-msgstr ""
+msgstr "Algemeen"
 
 msgctxt "#30006"
 msgid "InputStream Helper information"
@@ -40,4 +45,4 @@ msgstr ""
 
 msgctxt "#30042"
 msgid "Device ID"
-msgstr ""
+msgstr "Toestel ID"

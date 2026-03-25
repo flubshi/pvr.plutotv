@@ -4,40 +4,45 @@
 # Addon Provider: Team Kodi
 msgid ""
 msgstr ""
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
+"PO-Revision-Date: 2021-12-31 13:10+0000\n"
+"Last-Translator: Marek Adamski <fevbew@wp.pl>\n"
+"Language-Team: Polish <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-plutotv/pl_pl/>\n"
 "Language: pl_pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.10.1\n"
 
 msgctxt "Addon Summary"
 msgid "Pluto.tv PVR Client"
-msgstr ""
+msgstr "Klient PVR Pluto.tv"
 
 msgctxt "Addon Description"
 msgid "Pluto.tv PVR Client. Note: This is not an official pluto.tv add-on and not related to pluto.tv. It was developed by volunteers."
-msgstr ""
+msgstr "Klient PVR Pluto.tv. Uwaga: to nie jest oficjalny dodatek pluto.tv i nie jest powiązany z pluto.tv. Został opracowany przez wolontariuszy."
 
 msgctxt "#30001"
 msgid "General"
-msgstr ""
+msgstr "Ogólne"
 
 msgctxt "#30006"
 msgid "InputStream Helper information"
-msgstr ""
+msgstr "Informacje InputStream Helper"
 
 msgctxt "#30007"
 msgid "(Re)install Widevine CDM library"
-msgstr ""
+msgstr "(Ponownie) zainstaluj bibliotekę Widevine CDM"
 
 msgctxt "#30040"
 msgid "Debug"
-msgstr ""
+msgstr "Debuguj"
 
 msgctxt "#30041"
 msgid "SID"
-msgstr ""
+msgstr "SID"
 
 msgctxt "#30042"
 msgid "Device ID"
-msgstr ""
+msgstr "Identyfikator urzadzenia"

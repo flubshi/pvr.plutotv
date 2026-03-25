@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.plutotv"
-  version="19.0.3"
+  version="19.0.4"
   name="Pluto.tv PVR Client"
   provider-name="Team Kodi, flubshi">
   <requires>@ADDON_DEPENDS@
@@ -25,12 +25,22 @@
     <summary lang="da_DK">Pluto.tv PVR-klient</summary>
     <summary lang="de_DE">Pluto.tv PVR Client</summary>
     <summary lang="en_GB">Pluto.tv PVR Client</summary>
+    <summary lang="es_ES">Cliente PVR Pluto.tv</summary>
     <summary lang="es_MX">Cliente PVR de Pluto.tv</summary>
+    <summary lang="fr_FR">Client PVR Pluto.tv</summary>
+    <summary lang="hr_HR">Pluto.tv PVR klijent</summary>
+    <summary lang="it_IT">Client PVR Pluto.tv</summary>
     <summary lang="ko_KR">Pluto.tv PVR 클라이언트</summary>
+    <summary lang="pl_PL">Klient PVR Pluto.tv</summary>
     <description lang="da_DK">Pluto.tv PVR-klient. Bemærk: Dette er ikke et officielt pluto.tv-add-on og er ikke relateret til pluto.tv. Det er udviklet af frivillige.</description>
     <description lang="de_DE">Pluto.tv PVR Client. Hinweis: Dies ist kein offizielles Pluto.tv-Addon und steht nicht in Verbindung zu Pluto.tv. Es wurde von Freiwilligen entwickelt.</description>
     <description lang="en_GB">Pluto.tv PVR Client. Note: This is not an official pluto.tv add-on and not related to pluto.tv. It was developed by volunteers.</description>
+    <description lang="es_ES">Cliente PVR Pluto.tv. Nota: Este no es un plugin oficial de pluto.tv ni está relacionado con pluto.tv. Está desarrollado por voluntarios.</description>
     <description lang="es_MX">Cliente PVR de Pluto.tv. Nota: Este no es un complemento oficial de plut.tv y no está relacionado a pluto.tv. Ha sido desarrollado por voluntarios.</description>
+    <description lang="fr_FR">Client PVR Pluto.tv . Remarque : ceci n&apos;est pas un module complémentaire officiel de pluto.tv et n&apos;est pas lié à pluto.tv. Il a été développé par des bénévoles.</description>
+    <description lang="hr_HR">Pluto.tv PVR klijent. Napomena: Ovo nije službeni pluto.tv dodatak i nije povezan s pluto.tv. Razvijen je od strane dobrovoljaca.</description>
+    <description lang="it_IT">Client PVR Pluto.tv. Nota: questo non è un componente aggiuntivo ufficiale di pluto.tv e non è correlato a pluto.tv. È stato sviluppato da volontari.</description>
     <description lang="ko_KR">Pluto.tv PVR 클라이언트. 참고 : 이것은 공식 pluto.tv 애드온이 아니며 pluto.tv와 관련이 없습니다. 자원 봉사자가 개발했습니다.</description>
+    <description lang="pl_PL">Klient PVR Pluto.tv. Uwaga: to nie jest oficjalny dodatek pluto.tv i nie jest powiązany z pluto.tv. Został opracowany przez wolontariuszy.</description>
   </extension>
 </addon>
